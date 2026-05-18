@@ -1,6 +1,7 @@
 import Hero from "@/components/sections/Hero";
 import TechStack from "@/components/sections/TechStack";
 import Services from "@/components/sections/Services";
+import ROICalculator from "@/components/sections/ROICalculator";
 import Projects from "@/components/sections/Projects";
 import About from "@/components/sections/About";
 import Contact from "@/components/sections/Contact";
@@ -11,6 +12,7 @@ export default function Home() {
       <Hero />
       <TechStack />
       <Services />
+      <ROICalculator />
       <Projects />
       <About />
       <Contact />
