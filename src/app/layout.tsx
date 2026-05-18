@@ -3,6 +3,7 @@ import Script from "next/script";
 import { PersonJsonLd } from "@/components/seo/JsonLd";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import BackgroundBlobs from "@/components/ui/BackgroundBlobs";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -52,9 +53,10 @@ export default function RootLayout({
         />
         <PersonJsonLd />
       </head>
-      <body className="min-h-screen flex flex-col font-sans">
+      <body className="min-h-screen flex flex-col font-sans relative">
+        <BackgroundBlobs />
         <Header />
-        <main className="flex-1">
+        <main className="flex-1 relative z-10">
           {children}
         </main>
         <Footer />

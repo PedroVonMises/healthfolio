@@ -122,8 +122,22 @@
     }
   }
 
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
   body {
     @apply bg-bg text-text font-sans antialiased;
     transition: background-color var(--transition-interactive), color var(--transition-interactive);
   }
+}
+
+* {
+  scroll-behavior: smooth;
 }
