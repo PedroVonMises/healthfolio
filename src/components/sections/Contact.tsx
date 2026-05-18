@@ -10,10 +10,30 @@ export default function Contact() {
     e.preventDefault();
     setStatus('loading');
     
-    // Simulate API call for now since we're focusing on UI
-    setTimeout(() => {
+    try {
+      const formData = new FormData(e.currentTarget);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        company: formData.get('company'),
+        message: formData.get('message'),
+      };
+
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+
       setStatus('success');
-    }, 1500);
+    } catch (error) {
+      console.error(error);
+      setStatus('error');
+    }
   };
 
   return (
@@ -43,6 +63,13 @@ export default function Contact() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6 bg-bg p-8 rounded-2xl shadow-sm ring-1 ring-border">
+              {status === 'error' && (
+                <div role="alert" className="rounded-md bg-red-50 p-4 mb-6 ring-1 ring-red-200">
+                  <p className="text-sm text-red-800">
+                    Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.
+                  </p>
+                </div>
+              )}
               <div>
                 <label htmlFor="name" className="block text-sm font-medium leading-6 text-text">
                   Nome

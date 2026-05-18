@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 
 export default function Header() {
   return (
@@ -21,10 +22,11 @@ export default function Header() {
             Sobre Mim
           </Link>
         </nav>
-        <div className="flex flex-1 items-center justify-end">
+        <div className="flex flex-1 items-center justify-end gap-x-4">
+          <ThemeToggle />
           <a
             href="#contato"
-            className="text-sm font-semibold leading-6 text-text hover:text-primary transition-colors"
+            className="hidden sm:inline-flex text-sm font-semibold leading-6 text-text hover:text-primary transition-colors"
           >
             Fale Comigo <span aria-hidden="true">&rarr;</span>
           </a>
