@@ -49,8 +49,14 @@ export default function Projects() {
             <FadeIn key={project.id} delay={0.2 + index * 0.1}>
               <Spotlight className="h-full rounded-2xl ring-1 ring-inset ring-border/50 bg-bg hover:ring-primary/30 transition-all duration-300 hover:shadow-lg group">
                 <article className="flex max-w-xl flex-col items-start justify-between p-6 sm:p-8 h-full relative z-10">
-                  <div className="relative w-full overflow-hidden rounded-xl mb-6">
-                    <div className="aspect-[16/9] w-full bg-surface-2 object-cover sm:aspect-[2/1] lg:aspect-[3/2] flex items-center justify-center border border-border transition-all duration-500 group-hover:scale-105 group-hover:border-primary/30">
+                  <div className="relative w-full overflow-hidden rounded-xl mb-6 ring-1 ring-border bg-surface-2 group-hover:ring-primary/30 transition-colors duration-500">
+                    {/* Faux Window Frame (MacBook style) */}
+                    <div className="w-full h-8 bg-surface border-b border-border flex items-center px-4 gap-1.5 z-20 relative">
+                      <div className="w-2.5 h-2.5 rounded-full bg-red-400/80"></div>
+                      <div className="w-2.5 h-2.5 rounded-full bg-amber-400/80"></div>
+                      <div className="w-2.5 h-2.5 rounded-full bg-green-400/80"></div>
+                    </div>
+                    <div className="aspect-[16/9] w-full bg-surface-2 object-cover sm:aspect-[2/1] lg:aspect-[3/2] flex items-center justify-center transition-transform duration-700 group-hover:scale-105">
                       <ImageIcon className="h-8 w-8 text-text-faint transition-colors duration-500 group-hover:text-primary/50" />
                     </div>
                   </div>
