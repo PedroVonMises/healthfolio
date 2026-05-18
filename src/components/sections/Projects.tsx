@@ -82,7 +82,8 @@ export default function Projects() {
                     </div>
                     <div className="group/title relative flex-1">
                       <h3 className="mt-3 font-display text-xl font-semibold leading-6 text-text group-hover/title:text-primary transition-colors flex items-center gap-2">
-                        <Link href={`/projetos/${project.id}` as any}>
+                        {/* @ts-expect-error - dynamic routes are not yet fully typed by Next.js */}
+                        <Link href={`/projetos/${project.id}`}>
                           <span className="absolute inset-0" />
                           {project.title}
                         </Link>

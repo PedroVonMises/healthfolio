@@ -9,6 +9,7 @@ export default function Spotlight({ children, className = "" }: { children?: Rea
   const [opacity, setOpacity] = useState(0);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMounted(true);
   }, []);
 

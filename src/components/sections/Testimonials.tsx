@@ -104,7 +104,7 @@ export default function Testimonials() {
                 className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-12"
               >
                 <p className="text-lg sm:text-xl leading-relaxed text-text text-balance italic">
-                  "{testimonials[currentIndex].quote}"
+                  &quot;{testimonials[currentIndex].quote}&quot;
                 </p>
                 
                 <div className="mt-8 flex items-center gap-4">

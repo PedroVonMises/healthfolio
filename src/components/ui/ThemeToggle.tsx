@@ -12,9 +12,11 @@ export default function ThemeToggle() {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
     if (savedTheme) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTheme(savedTheme);
       document.documentElement.setAttribute('data-theme', savedTheme);
     } else if (prefersDark) {
+       
       setTheme('dark');
       document.documentElement.setAttribute('data-theme', 'dark');
     } else {
@@ -31,6 +33,7 @@ export default function ThemeToggle() {
 
   // Don't render until mounted to avoid hydration mismatch
   const [mounted, setMounted] = useState(false);
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setMounted(true), []);
 
   if (!mounted) {

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, animate, useMotionValue, useTransform, useInView } from 'framer-motion';
 import FadeIn from '@/components/ui/FadeIn';
-import { Calculator, TrendingUp, AlertCircle, ArrowRight } from 'lucide-react';
+import { Calculator, TrendingUp, AlertCircle } from 'lucide-react';
 
 function AnimatedNumber({ value }: { value: number }) {
   const ref = React.useRef(null);

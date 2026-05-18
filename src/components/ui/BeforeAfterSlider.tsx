@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { GripVertical } from 'lucide-react';
 
 interface BeforeAfterSliderProps {
@@ -52,6 +51,7 @@ export default function BeforeAfterSlider({
       window.removeEventListener('touchmove', onTouchMove);
       window.removeEventListener('touchend', () => setIsDragging(false));
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDragging]);
 
   return (
@@ -70,6 +70,7 @@ export default function BeforeAfterSlider({
       {/* Imagem "Antes" (Fundo) */}
       <div className="absolute inset-0 w-full h-full bg-surface-offset flex items-center justify-center p-8">
         {beforeImage ? (
+          // eslint-disable-next-line @next/next/no-img-element
           <img src={beforeImage} alt="Antes" loading="lazy" decoding="async" className="w-full h-full object-cover opacity-60 grayscale" />
         ) : (
           <div className="text-center">
@@ -87,6 +88,7 @@ export default function BeforeAfterSlider({
         style={{ clipPath: `inset(0 0 0 ${sliderPosition}%)` }}
       >
         {afterImage ? (
+          // eslint-disable-next-line @next/next/no-img-element
           <img src={afterImage} alt="Depois" loading="lazy" decoding="async" className="w-full h-full object-cover" />
         ) : (
           <div className="text-center w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-bg to-primary-highlight/20 relative">
