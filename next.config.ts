@@ -16,7 +16,7 @@ const securityHeaders = [
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.io",
       "style-src 'self' 'unsafe-inline' https://api.fontshare.com",
-      "font-src 'self' https://api.fontshare.com",
+      "font-src 'self' https://api.fontshare.com https://cdn.fontshare.com",
       "img-src 'self' data: blob:",
       "connect-src 'self' https://plausible.io",
       "frame-ancestors 'none'",

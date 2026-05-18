@@ -1,6 +1,8 @@
-import React from 'react';
 import Spotlight from '@/components/ui/Spotlight';
 import FadeIn from '@/components/ui/FadeIn';
+import MagneticButton from '@/components/ui/MagneticButton';
+import DigitalClock from '@/components/ui/DigitalClock';
+import TrustMetrics from '@/components/ui/TrustMetrics';
 
 export default function Hero() {
   return (
@@ -31,12 +33,13 @@ export default function Hero() {
           
           <FadeIn delay={0.4}>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <a
+              <MagneticButton
                 href="#contato"
-                className="rounded-full bg-primary px-5 py-3 text-sm font-semibold text-text-inverse shadow-md shadow-primary/20 hover:bg-primary-hover hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-all duration-300"
+                className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-text-inverse shadow-md shadow-primary/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-all duration-300 ring-1 ring-primary-active/50 hover:ring-primary-highlight"
               >
-                Agendar Avaliação Gratuita
-              </a>
+                <span>Agendar Avaliação</span>
+                <DigitalClock />
+              </MagneticButton>
               <a
                 href="#projetos"
                 className="text-sm font-semibold leading-6 text-text hover:text-primary transition-colors duration-300 group flex items-center gap-2"
@@ -45,6 +48,9 @@ export default function Hero() {
               </a>
             </div>
           </FadeIn>
+          
+          {/* Métricas de conversão para o público-alvo */}
+          <TrustMetrics />
         </div>
       </div>
     </section>

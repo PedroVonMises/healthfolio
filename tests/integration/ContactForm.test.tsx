@@ -20,8 +20,8 @@ describe('ContactForm', () => {
     render(<ContactForm />)
     
     // Preenche para passar validacao nativa
-    fireEvent.change(screen.getByLabelText(/nome/i), { target: { value: 'Teste' } })
-    fireEvent.change(screen.getByLabelText(/e-mail/i), { target: { value: 'teste@ex.com' } })
+    fireEvent.change(screen.getByLabelText(/^nome$/i), { target: { value: 'Teste' } })
+    fireEvent.change(screen.getByLabelText(/e-mail/i), { target: { value: 'teste@email.com' } })
     fireEvent.change(screen.getByLabelText(/mensagem/i), { target: { value: 'Mensagem longa o suficiente' } })
     
     // Aqui procuramos um botão que não esteja hidden e tenha type submit ou onClick, 
