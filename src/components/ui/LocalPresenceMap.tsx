@@ -47,12 +47,12 @@ export default function LocalPresenceMap() {
           </div>
         </div>
         
-        <div className="mt-2 bg-surface/80 backdrop-blur-sm px-3 py-1.5 rounded-full border border-border shadow-sm">
+        <div className="mt-2 bg-bg/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 dark:border-white/10 shadow-lg">
           <p className="text-xs font-semibold text-text whitespace-nowrap">Grande Vitória, ES</p>
         </div>
       </div>
 
-      <div className="relative z-10 mt-auto bg-surface/90 backdrop-blur-md p-5 -mx-6 -mb-6 rounded-b-2xl border-t border-border">
+      <div className="relative z-10 mt-auto bg-bg/60 backdrop-blur-xl p-5 -mx-6 -mb-6 rounded-b-2xl border-t border-white/20 dark:border-white/10 shadow-[-0_10px_40px_-15px_rgba(0,0,0,0.1)]">
         <h3 className="text-sm font-semibold text-text">Atendimento Presencial</h3>
         <p className="text-xs text-text-muted mt-1">Consultoria técnica direta na sua clínica para entender a operação de perto.</p>
       </div>

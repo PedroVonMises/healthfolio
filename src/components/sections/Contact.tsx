@@ -39,8 +39,12 @@ export default function Contact() {
   };
 
   return (
-    <section id="contato" className="bg-surface py-24 sm:py-32 border-t border-divider">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section id="contato" className="bg-surface py-24 sm:py-32 border-t border-divider relative overflow-hidden">
+      {/* Background blobs for glassmorphism effect */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] pointer-events-none z-0" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[100px] pointer-events-none z-0" />
+
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
         <FadeIn delay={0.1}>
           <div className="mx-auto max-w-2xl lg:text-center mb-16">
             <h2 className="text-base font-semibold leading-7 text-primary flex items-center justify-center gap-2">
@@ -58,13 +62,14 @@ export default function Contact() {
         <div className="mx-auto max-w-xl">
           {status === 'success' ? (
             <FadeIn>
-              <div className="rounded-2xl bg-primary-highlight p-10 text-center ring-1 ring-inset ring-primary/20 shadow-lg shadow-primary/5">
-                <CheckCircle2 className="h-16 w-16 text-primary mx-auto mb-6" strokeWidth={1.5} />
-                <h3 className="font-display text-2xl font-semibold text-primary mb-2">Mensagem enviada!</h3>
-                <p className="text-text-muted mb-8">Agradeço o contato. Retornarei o mais breve possível para entendermos os desafios da sua clínica.</p>
+              <div className="rounded-2xl bg-bg/60 backdrop-blur-xl border border-white/10 dark:border-white/5 p-10 text-center shadow-2xl shadow-primary/5 ring-1 ring-inset ring-primary/20 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent dark:from-white/5 opacity-20 pointer-events-none" />
+                <CheckCircle2 className="h-16 w-16 text-primary mx-auto mb-6 relative z-10" strokeWidth={1.5} />
+                <h3 className="font-display text-2xl font-semibold text-primary mb-2 relative z-10">Mensagem enviada!</h3>
+                <p className="text-text-muted mb-8 relative z-10">Agradeço o contato. Retornarei o mais breve possível para entendermos os desafios da sua clínica.</p>
                 <button 
                   onClick={() => setStatus('idle')}
-                  className="rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-primary shadow-sm hover:bg-surface transition-all ring-1 ring-inset ring-primary/20"
+                  className="rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-primary shadow-sm hover:bg-surface transition-all ring-1 ring-inset ring-primary/20 relative z-10"
                 >
                   Enviar nova mensagem
                 </button>
@@ -72,7 +77,8 @@ export default function Contact() {
             </FadeIn>
           ) : (
             <FadeIn delay={0.2}>
-              <form onSubmit={handleSubmit} className="space-y-6 bg-bg p-8 rounded-2xl shadow-md shadow-black/5 ring-1 ring-border">
+              <form onSubmit={handleSubmit} className="relative space-y-6 bg-bg/60 backdrop-blur-xl p-8 rounded-2xl shadow-2xl shadow-black/5 border border-white/20 dark:border-white/10 ring-1 ring-border overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent dark:from-white/5 opacity-20 pointer-events-none" />
                 {status === 'error' && (
                   <div role="alert" className="rounded-md bg-red-50 p-4 mb-6 ring-1 ring-red-200 flex gap-3">
                     <AlertCircle className="h-5 w-5 text-red-600 shrink-0" />

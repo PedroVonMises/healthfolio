@@ -42,7 +42,7 @@ export default function Header() {
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.35, ease: "easeInOut" }}
       className={`fixed top-0 inset-x-0 z-50 w-full transition-colors duration-300 ${
-        isScrolled ? 'bg-bg/80 backdrop-blur-md shadow-sm' : 'bg-transparent'
+        isScrolled ? 'bg-bg/60 backdrop-blur-xl shadow-sm border-b border-white/10 dark:border-white/5' : 'bg-transparent border-b-transparent'
       }`}
     >
       {/* Scroll Progress Bar */}
@@ -50,8 +50,8 @@ export default function Header() {
         className="absolute top-0 left-0 right-0 h-1 bg-primary origin-left z-50"
         style={{ scaleX }}
       />
-      <div className={`mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8 transition-all duration-300 border-b border-border ${
-        isScrolled ? 'h-16' : 'h-20'
+      <div className={`mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8 transition-all duration-300 ${
+        isScrolled ? 'h-16' : 'h-20 border-b border-border'
       }`}>
         <div className="flex flex-1 items-center gap-x-6">
           <Link href="/" className="-m-1.5 p-1.5 text-xl font-display font-bold text-text group">
