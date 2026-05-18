@@ -82,7 +82,8 @@ export default function Projects() {
                     </div>
                     <div className="group/title relative flex-1">
                       <h3 className="mt-3 font-display text-xl font-semibold leading-6 text-text group-hover/title:text-primary transition-colors flex items-center gap-2">
-                        <Link href={`/projetos/${project.id}` as string}>
+                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                        <Link href={`/projetos/${project.id}` as unknown as any}>
                           <span className="absolute inset-0" />
                           {project.title}
                         </Link>
