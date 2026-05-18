@@ -3,11 +3,16 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import ThemeToggle from '@/components/ui/ThemeToggle';
-import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useSpring, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
 export default function Header() {
-  const { scrollY } = useScroll();
+  const { scrollY, scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
   const [hidden, setHidden] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -37,26 +42,34 @@ export default function Header() {
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.35, ease: "easeInOut" }}
       className={`fixed top-0 inset-x-0 z-50 w-full transition-colors duration-300 ${
-        isScrolled ? 'border-b border-border bg-bg/80 backdrop-blur-md shadow-sm' : 'bg-transparent border-transparent'
+        isScrolled ? 'bg-bg/80 backdrop-blur-md shadow-sm' : 'bg-transparent'
       }`}
     >
-      <div className={`mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8 transition-all duration-300 ${
+      {/* Scroll Progress Bar */}
+      <motion.div 
+        className="absolute top-0 left-0 right-0 h-1 bg-primary origin-left z-50"
+        style={{ scaleX }}
+      />
+      <div className={`mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8 transition-all duration-300 border-b border-border ${
         isScrolled ? 'h-16' : 'h-20'
       }`}>
         <div className="flex flex-1 items-center gap-x-6">
-          <Link href="/" className="-m-1.5 p-1.5 text-lg font-display font-bold text-text group">
+          <Link href="/" className="-m-1.5 p-1.5 text-xl font-display font-bold text-text group">
             Pedro Augusto<span className="text-primary group-hover:animate-pulse">.</span>
           </Link>
         </div>
         <nav className="hidden md:flex gap-x-8">
-          <Link href="#especializacao" className="text-sm font-semibold leading-6 text-text-muted hover:text-primary transition-colors">
+          <Link href="#especializacao" className="group relative text-sm font-semibold leading-6 text-text-muted hover:text-primary transition-colors">
             Especialização
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full rounded-full"></span>
           </Link>
-          <Link href="#projetos" className="text-sm font-semibold leading-6 text-text-muted hover:text-primary transition-colors">
+          <Link href="#projetos" className="group relative text-sm font-semibold leading-6 text-text-muted hover:text-primary transition-colors">
             Cases de Sucesso
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full rounded-full"></span>
           </Link>
-          <Link href="#sobre" className="text-sm font-semibold leading-6 text-text-muted hover:text-primary transition-colors">
+          <Link href="#sobre" className="group relative text-sm font-semibold leading-6 text-text-muted hover:text-primary transition-colors">
             Sobre Mim
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full rounded-full"></span>
           </Link>
         </nav>
         <div className="flex flex-1 items-center justify-end gap-x-4">
@@ -100,7 +113,7 @@ export default function Header() {
               className="fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-surface px-6 py-6 sm:ring-1 sm:ring-border md:hidden overflow-y-auto"
             >
               <div className="flex items-center justify-between mb-8">
-                <Link href="/" onClick={() => setMobileMenuOpen(false)} className="-m-1.5 p-1.5 text-lg font-display font-bold text-text">
+                <Link href="/" onClick={() => setMobileMenuOpen(false)} className="-m-1.5 p-1.5 text-xl font-display font-bold text-text">
                   Pedro Augusto<span className="text-primary">.</span>
                 </Link>
                 <button

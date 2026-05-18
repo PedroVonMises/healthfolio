@@ -26,7 +26,7 @@ export default function DigitalClock() {
   if (!time) return <div className="w-16 h-4" />; // Placeholder to avoid layout shift
 
   return (
-    <div className="flex items-center gap-1.5 px-2 py-1 bg-black/20 rounded-md font-mono text-xs font-medium tracking-wider">
+    <div className="flex items-center gap-1.5 px-2 py-1 bg-black/20 rounded-md font-mono text-xs font-medium tracking-wider shrink-0">
       <Clock className="w-3.5 h-3.5 opacity-70" />
       <span>{time}</span>
       <span className="relative flex h-2 w-2 ml-1">

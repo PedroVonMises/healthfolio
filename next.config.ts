@@ -17,7 +17,8 @@ const securityHeaders = [
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.io",
       "style-src 'self' 'unsafe-inline' https://api.fontshare.com",
       "font-src 'self' https://api.fontshare.com https://cdn.fontshare.com",
-      "img-src 'self' data: blob:",
+      "img-src 'self' data: blob: https://images.unsplash.com",
+      "frame-src 'self' https://www.openstreetmap.org",
       "connect-src 'self' https://plausible.io",
       "frame-ancestors 'none'",
       "base-uri 'self'",
@@ -39,9 +40,7 @@ const nextConfig: NextConfig = {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 86400,
   },
-  experimental: { 
-    typedRoutes: true,
-  },
+  typedRoutes: true,
 }
 
 export default nextConfig

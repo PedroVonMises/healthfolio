@@ -20,13 +20,12 @@ describe('ContactForm', () => {
     render(<ContactForm />)
     
     // Preenche para passar validacao nativa
-    fireEvent.change(screen.getByLabelText(/^nome$/i), { target: { value: 'Teste' } })
+    fireEvent.change(screen.getByLabelText(/nome/i), { target: { value: 'Teste' } })
     fireEvent.change(screen.getByLabelText(/e-mail/i), { target: { value: 'teste@email.com' } })
-    fireEvent.change(screen.getByLabelText(/mensagem/i), { target: { value: 'Mensagem longa o suficiente' } })
+    fireEvent.change(screen.getByLabelText(/travando/i), { target: { value: 'Mensagem longa o suficiente' } })
     
-    // Aqui procuramos um botão que não esteja hidden e tenha type submit ou onClick, 
-    // mas no nosso caso ele tem text "Enviar" ou "Enviando..."
-    const submitButton = screen.getByRole('button', { name: /enviar/i })
+    // mas no nosso caso ele tem text "Quero..." ou "Enviando..."
+    const submitButton = screen.getByRole('button', { name: /quero/i })
     fireEvent.submit(submitButton.closest('form') as HTMLFormElement)
     
     await waitFor(() => {

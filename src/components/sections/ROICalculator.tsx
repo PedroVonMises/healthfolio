@@ -1,25 +1,29 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { motion, animate, useMotionValue, useTransform } from 'framer-motion';
+import { motion, animate, useMotionValue, useTransform, useInView } from 'framer-motion';
 import FadeIn from '@/components/ui/FadeIn';
 import { Calculator, TrendingUp, AlertCircle, ArrowRight } from 'lucide-react';
 
 function AnimatedNumber({ value }: { value: number }) {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const motionValue = useMotionValue(0);
   const displayValue = useTransform(motionValue, (latest) => 
     new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(latest)
   );
 
   useEffect(() => {
-    const controls = animate(motionValue, value, {
-      duration: 0.8,
-      ease: "easeOut",
-    });
-    return controls.stop;
-  }, [value, motionValue]);
+    if (isInView) {
+      const controls = animate(motionValue, value, {
+        duration: 1.2,
+        ease: "easeOut",
+      });
+      return controls.stop;
+    }
+  }, [value, motionValue, isInView]);
 
-  return <motion.span>{displayValue}</motion.span>;
+  return <motion.span ref={ref}>{displayValue}</motion.span>;
 }
 
 export default function ROICalculator() {
@@ -48,7 +52,7 @@ export default function ROICalculator() {
             <p className="mt-2 font-display text-3xl font-bold tracking-tight text-text sm:text-4xl">
               O custo invisível da agenda ociosa
             </p>
-            <p className="mt-6 text-lg leading-8 text-text-muted">
+            <p className="mt-6 text-base leading-7 text-text-muted">
               Veja em tempo real o impacto financeiro que um sistema de agendamento inteligente e envio automatizado de lembretes via WhatsApp pode trazer para a sua clínica.
             </p>
           </div>

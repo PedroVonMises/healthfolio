@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 
-export default function Spotlight({ children, className = "" }: { children: React.ReactNode, className?: string }) {
+export default function Spotlight({ children, className = "" }: { children?: React.ReactNode, className?: string }) {
   const divRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });

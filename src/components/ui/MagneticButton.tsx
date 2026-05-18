@@ -12,16 +12,20 @@ export default function MagneticButton({
   href: string;
   className?: string;
 }) {
-  const ref = useRef<HTMLAnchorElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   
-  const springX = useSpring(x, { stiffness: 150, damping: 15, mass: 0.1 });
-  const springY = useSpring(y, { stiffness: 150, damping: 15, mass: 0.1 });
+  // Standard "Awwwards-style" buttery smooth spring config
+  const springX = useSpring(x, { stiffness: 100, damping: 20, mass: 0.5 });
+  const springY = useSpring(y, { stiffness: 100, damping: 20, mass: 0.5 });
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;
+    // Disable magnetic effect on touch devices to prevent jank
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+    
     const rect = ref.current.getBoundingClientRect();
     
     // Calculate distance from center
@@ -31,8 +35,8 @@ export default function MagneticButton({
     const distanceX = e.clientX - centerX;
     const distanceY = e.clientY - centerY;
     
-    x.set(distanceX * 0.2); // Pull strength
-    y.set(distanceY * 0.2);
+    x.set(distanceX * 0.3); // Smooth pull strength
+    y.set(distanceY * 0.3);
   };
 
   const handleMouseLeave = () => {
@@ -41,20 +45,24 @@ export default function MagneticButton({
   };
 
   return (
-    <motion.a
-      href={href}
+    <div
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ x: springX, y: springY }}
-      className={`group relative flex items-center justify-center gap-3 overflow-hidden ${className}`}
+      className="relative flex items-center justify-center px-10 py-12 -mx-10 -my-12 z-20" // Vastly larger hit box to accommodate 0.3 pull strength sem vazar
     >
-      <span className="relative z-10 flex items-center gap-2">
-        {children}
-      </span>
-      
-      {/* Magnetic background flare */}
-      <div className="absolute inset-0 z-0 bg-primary-hover opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-    </motion.a>
+      <motion.a
+        href={href}
+        style={{ x: springX, y: springY }}
+        className={`group relative flex items-center justify-center gap-3 overflow-hidden ${className}`}
+      >
+        <span className="relative z-10 flex items-center gap-2">
+          {children}
+        </span>
+        
+        {/* Magnetic background flare */}
+        <div className="absolute inset-0 z-0 bg-primary-hover opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      </motion.a>
+    </div>
   );
 }

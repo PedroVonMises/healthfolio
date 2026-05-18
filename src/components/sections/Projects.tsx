@@ -2,29 +2,30 @@ import React from 'react';
 import Link from 'next/link';
 import FadeIn from '@/components/ui/FadeIn';
 import Spotlight from '@/components/ui/Spotlight';
-import { ArrowRight, Image as ImageIcon } from 'lucide-react';
+import BeforeAfterSlider from '@/components/ui/BeforeAfterSlider';
+import { ArrowRight, Image as ImageIcon, FolderCheck } from 'lucide-react';
 
 const projects = [
   {
     id: 'portal-paciente',
-    title: 'Portal do Paciente - Clínica Vix',
-    category: 'Desenvolvimento Full-stack',
-    description: 'Um ambiente seguro (PWA) integrado ao ERP da clínica, permitindo o agendamento de consultas, visualização de laudos em PDF e acesso ao histórico médico. Reduziu chamadas telefônicas em 35% no primeiro mês.',
-    tags: ['Next.js', 'Tailwind', 'Integração ERP', 'Autenticação'],
+    title: 'Portal do Paciente - Clínica de Especialidades',
+    category: 'Redução de Gargalos',
+    description: 'Situação: Clínica perdia 15% dos agendamentos por demora no WhatsApp. Solução: Ambiente seguro integrado ao ERP. Resultado: Redução de 35% nas chamadas telefônicas e aumento de 22% em consultas efetivadas no primeiro mês.',
+    tags: ['Next.js', 'Tailwind', 'Integração ERP'],
   },
   {
     id: 'dashboard-gestao',
-    title: 'Dashboard de Gestão Clínica',
-    category: 'UX/UI & Front-end',
-    description: 'Painel gerencial para sócios-médicos com métricas em tempo real sobre faturamento por convênio, taxa de ocupação da agenda e índice de no-show. Substituiu 4 planilhas manuais complexas.',
-    tags: ['React', 'Gráficos', 'API REST', 'Design System'],
+    title: 'Painel Gerencial para Sócios-Médicos',
+    category: 'Visibilidade Financeira',
+    description: 'Situação: Gestão às cegas com fechamento mensal demorado. Solução: Dashboard consolidando faturamento por convênio e métricas de no-show. Resultado: Substituiu 4 planilhas complexas e acelerou a tomada de decisão financeira.',
+    tags: ['React', 'Data Viz', 'API REST'],
   },
   {
     id: 'agendamento-whatsapp',
-    title: 'Totem de Autoatendimento & Agendamento',
-    category: 'Solução Integrada',
-    description: 'Fluxo contínuo de recepção: totem local sincronizado com um sistema de agendamento web responsivo e notificações via WhatsApp, otimizando o tempo de espera.',
-    tags: ['TypeScript', 'Integração WhatsApp', 'UX Focus'],
+    title: 'Autoatendimento Sincronizado',
+    category: 'Experiência Premium',
+    description: 'Situação: Sala de espera lotada e pacientes insatisfeitos. Solução: Totem sincronizado com agendamento web e notificações ativas de WhatsApp. Resultado: Tempo de espera na recepção caiu pela metade.',
+    tags: ['TypeScript', 'Integração WhatsApp'],
   },
 ];
 
@@ -34,17 +35,30 @@ export default function Projects() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <FadeIn delay={0.1}>
           <div className="mx-auto max-w-2xl lg:mx-0">
-            <h2 className="text-base font-semibold leading-7 text-primary">Portfólio</h2>
+            <h2 className="text-base font-semibold leading-7 text-primary flex items-center gap-2">
+              <FolderCheck className="w-4 h-4" /> Estudos de Caso
+            </h2>
             <p className="mt-2 font-display text-3xl font-bold tracking-tight text-text sm:text-4xl">
-              Cases de Sucesso na Saúde
+              Resultados reais para clínicas capixabas
             </p>
-            <p className="mt-6 text-lg leading-8 text-text-muted">
-              Veja como soluções digitais focadas em usabilidade transformam a operação de clínicas e a percepção de valor dos pacientes.
+            <p className="mt-6 text-base leading-7 text-text-muted">
+              Veja como investir na experiência digital certa transforma custos operacionais em lucro previsível e pacientes esporádicos em clientes fiéis.
             </p>
           </div>
         </FadeIn>
+
+        <FadeIn delay={0.15}>
+          <div className="mx-auto mt-12 max-w-5xl mb-16">
+            <BeforeAfterSlider 
+              beforeLabel="Recepção (Caos & Papel)"
+              afterLabel="Autoatendimento & Dashboard"
+              beforeImage="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=1000&auto=format&fit=crop"
+              afterImage="/dashboard.png"
+            />
+          </div>
+        </FadeIn>
         
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {projects.map((project, index) => (
             <FadeIn key={project.id} delay={0.2 + index * 0.1}>
               <Spotlight className="h-full rounded-2xl ring-1 ring-inset ring-border/50 bg-bg hover:ring-primary/30 transition-all duration-300 hover:shadow-lg group">
@@ -68,7 +82,7 @@ export default function Projects() {
                     </div>
                     <div className="group/title relative flex-1">
                       <h3 className="mt-3 font-display text-xl font-semibold leading-6 text-text group-hover/title:text-primary transition-colors flex items-center gap-2">
-                        <Link href={`/projetos/${project.id}`}>
+                        <Link href={`/projetos/${project.id}` as any}>
                           <span className="absolute inset-0" />
                           {project.title}
                         </Link>
@@ -101,7 +115,7 @@ export default function Projects() {
               href="#contato"
               className="group flex items-center gap-2 rounded-full bg-surface-2 px-6 py-2.5 text-sm font-semibold text-text shadow-sm hover:bg-surface-offset ring-1 ring-inset ring-border transition-all hover:ring-primary/50"
             >
-              Quero um projeto similar para minha clínica
+              Ver como isso funciona na minha especialidade
               <ArrowRight className="h-4 w-4 text-text-muted group-hover:text-primary transition-colors" />
             </Link>
           </div>

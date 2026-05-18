@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import FadeIn from '@/components/ui/FadeIn';
-import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Send, CheckCircle2, AlertCircle, MessageCircle } from 'lucide-react';
 
 export default function Contact() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -43,12 +43,14 @@ export default function Contact() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <FadeIn delay={0.1}>
           <div className="mx-auto max-w-2xl lg:text-center mb-16">
-            <h2 className="text-base font-semibold leading-7 text-primary">Contato</h2>
+            <h2 className="text-base font-semibold leading-7 text-primary flex items-center justify-center gap-2">
+              <MessageCircle className="w-4 h-4" /> Contato Direto
+            </h2>
             <p className="mt-2 font-display text-3xl font-bold tracking-tight text-text sm:text-4xl text-balance">
-              Pronto para transformar sua clínica?
+              Vamos eliminar os gargalos da sua clínica?
             </p>
-            <p className="mt-6 text-lg leading-8 text-text-muted">
-              Preencha o formulário abaixo para agendarmos uma conversa sobre as necessidades tecnológicas do seu negócio.
+            <p className="mt-6 text-base leading-7 text-text-muted">
+              Conte sobre a sua especialidade e os desafios atuais. Responderei em até 24 horas para agendarmos uma análise de viabilidade técnica gratuita.
             </p>
           </div>
         </FadeIn>
@@ -81,7 +83,7 @@ export default function Contact() {
                 )}
               <div>
                 <label htmlFor="name" className="block text-sm font-medium leading-6 text-text">
-                  Nome
+                  Seu nome
                 </label>
                 <div className="mt-2">
                   <input
@@ -90,14 +92,14 @@ export default function Contact() {
                     id="name"
                     required
                     className="block w-full rounded-md border-0 py-2.5 px-4 text-text shadow-sm ring-1 ring-inset ring-border placeholder:text-text-faint focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 bg-surface-2"
-                    placeholder="Seu nome"
+                    placeholder="Dr. João Silva"
                   />
                 </div>
               </div>
 
               <div>
                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-text">
-                  E-mail
+                  E-mail profissional
                 </label>
                 <div className="mt-2">
                   <input
@@ -106,14 +108,14 @@ export default function Contact() {
                     id="email"
                     required
                     className="block w-full rounded-md border-0 py-2.5 px-4 text-text shadow-sm ring-1 ring-inset ring-border placeholder:text-text-faint focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 bg-surface-2"
-                    placeholder="voce@exemplo.com"
+                    placeholder="joao@suaclinica.com.br"
                   />
                 </div>
               </div>
 
               <div>
                 <label htmlFor="company" className="block text-sm font-medium leading-6 text-text">
-                  Nome da Clínica <span className="text-text-faint font-normal">(Opcional)</span>
+                  Clínica / Especialidade <span className="text-text-faint font-normal">(Opcional)</span>
                 </label>
                 <div className="mt-2">
                   <input
@@ -121,14 +123,14 @@ export default function Contact() {
                     name="company"
                     id="company"
                     className="block w-full rounded-md border-0 py-2.5 px-4 text-text shadow-sm ring-1 ring-inset ring-border placeholder:text-text-faint focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 bg-surface-2"
-                    placeholder="Sua Clínica"
+                    placeholder="Clínica OrtoPédica — Vitória"
                   />
                 </div>
               </div>
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium leading-6 text-text">
-                  Mensagem
+                  O que está travando sua clínica?
                 </label>
                 <div className="mt-2">
                   <textarea
@@ -137,7 +139,7 @@ export default function Contact() {
                     rows={4}
                     required
                     className="block w-full rounded-md border-0 py-2.5 px-4 text-text shadow-sm ring-1 ring-inset ring-border placeholder:text-text-faint focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6 bg-surface-2"
-                    placeholder="Como posso ajudar a sua clínica?"
+                    placeholder="Contamos com um sistema antigo..."
                   />
                 </div>
               </div>
@@ -156,8 +158,8 @@ export default function Contact() {
                 >
                   {status === 'loading' ? 'Enviando...' : (
                     <>
-                      Enviar
-                      <Send className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      Quero uma análise gratuita
+                      <Send className="h-4 w-4 shrink-0 group-hover:translate-x-1 transition-transform" />
                     </>
                   )}
                 </button>

@@ -13,21 +13,20 @@ export default function Hero() {
           <FadeIn delay={0.1}>
             <div className="mb-8 flex justify-center">
               <span className="rounded-full bg-primary-highlight px-3 py-1 text-sm font-semibold leading-6 text-primary ring-1 ring-inset ring-primary/20 shadow-sm shadow-primary/10">
-                Especialista em Saúde Digital na Grande Vitória
+                Desenvolvedor Front-end Especialista em Saúde
               </span>
             </div>
           </FadeIn>
           
           <FadeIn delay={0.2}>
             <h1 className="font-display text-4xl font-bold tracking-tight text-text sm:text-6xl text-balance">
-              Aumente a conversão de pacientes e reduza o no-show.
+              Sua agenda cheia. Seu administrativo no piloto automático.
             </h1>
           </FadeIn>
           
           <FadeIn delay={0.3}>
-            <p className="mt-6 text-lg leading-8 text-text-muted text-balance">
-              Desenvolvo portais de agendamento modernos e dashboards clínicos sob medida para clínicas privadas.
-              Entregue uma experiência digital de ponta que seus pacientes esperam e sua clínica merece.
+            <p className="mt-6 text-base leading-7 text-text-muted text-balance">
+              Reduza o no-show e pare de perder pacientes por gargalos no WhatsApp. Desenvolvo portais de paciente e sistemas de agendamento focados em clínicas privadas na Grande Vitória – ES.
             </p>
           </FadeIn>
           
@@ -37,7 +36,7 @@ export default function Hero() {
                 href="#contato"
                 className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-text-inverse shadow-md shadow-primary/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-all duration-300 ring-1 ring-primary-active/50 hover:ring-primary-highlight"
               >
-                <span>Agendar Avaliação</span>
+                <span>Quero uma análise gratuita</span>
                 <DigitalClock />
               </MagneticButton>
               <a

@@ -35,11 +35,11 @@
   :root, [data-theme="light"] {
     /* Superfícies */
     --color-bg:              #FFFFFF;
-    --color-surface:         #F8F9FA;
-    --color-surface-2:       #F1F3F5;
-    --color-surface-offset:  #E9ECEF;
-    --color-divider:         oklch(0.2 0.01 80 / 0.10);
-    --color-border:          oklch(0.2 0.01 80 / 0.12);
+    --color-surface:         #F5F5F4;
+    --color-surface-2:       #E7E5E4;
+    --color-surface-offset:  #D6D3D1;
+    --color-divider:         oklch(0.2 0.01 80 / 0.08);
+    --color-border:          oklch(0.2 0.01 80 / 0.15);
 
     /* Texto */
     --color-text:            #1C1C1E;
@@ -136,8 +136,12 @@
     @apply bg-bg text-text font-sans antialiased;
     transition: background-color var(--transition-interactive), color var(--transition-interactive);
   }
+
+  /* Global Accessibility Focus Rings */
+  *:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+    border-radius: inherit;
+  }
 }
 
-* {
-  scroll-behavior: smooth;
-}
