@@ -39,7 +39,7 @@ export default function Spotlight({ children, className = "" }: { children?: Rea
       className={`relative overflow-hidden ${className}`}
     >
       <div
-        className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 z-0"
+        className="pointer-events-none absolute -inset-px transition-opacity duration-500 z-0"
         style={{
           opacity,
           background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, rgba(200, 16, 46, 0.04), transparent 40%)`,
@@ -47,7 +47,7 @@ export default function Spotlight({ children, className = "" }: { children?: Rea
       />
       {/* Light version for dark mode specifically */}
       <div
-        className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 z-0 hidden dark:block"
+        className="pointer-events-none absolute -inset-px transition-opacity duration-500 z-0 hidden dark:block"
         style={{
           opacity,
           background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, rgba(255, 255, 255, 0.03), transparent 40%)`,

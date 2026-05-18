@@ -41,8 +41,8 @@ export default function Header() {
       }}
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.35, ease: "easeInOut" }}
-      className={`fixed top-0 inset-x-0 z-50 w-full transition-colors duration-300 ${
-        isScrolled ? 'bg-bg/60 backdrop-blur-xl shadow-sm border-b border-white/10 dark:border-white/5' : 'bg-transparent border-b-transparent'
+      className={`fixed top-0 inset-x-0 z-50 w-full transition-all duration-500 ${
+        isScrolled ? 'bg-bg/60 backdrop-blur-xl shadow-sm border-b border-black/5 dark:border-white/10' : 'bg-transparent border-b border-transparent'
       }`}
     >
       {/* Scroll Progress Bar */}

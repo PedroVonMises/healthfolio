@@ -36,11 +36,13 @@ export default function LocalPresenceMap() {
             className="absolute w-12 h-12 bg-primary/20 rounded-full"
             animate={{ scale: [1, 2], opacity: [0.8, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+            style={{ willChange: "transform, opacity" }}
           />
           <motion.div
             className="absolute w-6 h-6 bg-primary/40 rounded-full"
             animate={{ scale: [1, 1.5], opacity: [1, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeOut", delay: 0.5 }}
+            style={{ willChange: "transform, opacity" }}
           />
           <div className="relative z-10 w-8 h-8 bg-surface rounded-full flex items-center justify-center shadow-md ring-1 ring-border">
             <MapPin className="w-4 h-4 text-primary" />
