@@ -24,7 +24,7 @@ priorizando impacto alto com esforço baixo/médio.
 
 ---
 
-## TAREFA 1 — `MotionConfig` global com `reducedMotion: "user"` ⬜
+## TAREFA 1 — `MotionConfig` global com `reducedMotion: "user"` [x]
 
 **Prioridade:** Alta | **Esforço:** Muito baixo (≈ 15 min) | **Impacto:** ⭐⭐⭐⭐
 
@@ -73,15 +73,15 @@ Complementa o `@media (prefers-reduced-motion: reduce)` já no `base.css`.
 
 ### Checklist
 
-- [ ] `MotionConfig` importado de `framer-motion`
-- [ ] Envolvendo o `body` inteiro, não seções individuais
-- [ ] Teste de integração criado
-- [ ] `pnpm typecheck` sem erros
-- [ ] `pnpm lint` sem warnings
+- [x] `MotionConfig` importado de `framer-motion`
+- [x] Envolvendo o `body` inteiro, não seções individuais
+- [x] Teste de integração criado
+- [x] `pnpm typecheck` sem erros
+- [x] `pnpm lint` sem warnings
 
 ---
 
-## TAREFA 2 — `staggerChildren` + `whileInView` nas seções ⬜
+## TAREFA 2 — `staggerChildren` + `whileInView` nas seções [x]
 
 **Prioridade:** Alta | **Esforço:** Baixo (≈ 45 min) | **Impacto:** ⭐⭐⭐⭐⭐
 
@@ -206,17 +206,17 @@ describe('StaggerList', () => {
 
 ### Checklist
 
-- [ ] `StaggerList.tsx` e `StaggerItem.tsx` criados em `components/ui/`
-- [ ] `"use client"` declarado (FM é client-side)
-- [ ] `viewport={{ once: true }}` — anima apenas na primeira vez que entra na tela
-- [ ] `ease` usando o mesmo cubic-bezier do `--transition-interactive` do design system
-- [ ] Aplicado em `TechStack.tsx` e ao menos 1 outra seção
-- [ ] Testes criados e passando
-- [ ] `pnpm typecheck` sem erros
+- [x] `StaggerList.tsx` e `StaggerItem.tsx` criados em `components/ui/`
+- [x] `"use client"` declarado (FM é client-side)
+- [x] `viewport={{ once: true }}` — anima apenas na primeira vez que entra na tela
+- [x] `ease` usando o mesmo cubic-bezier do `--transition-interactive` do design system
+- [x] Aplicado em `TechStack.tsx` e ao menos 1 outra seção
+- [x] Testes criados e passando
+- [x] `pnpm typecheck` sem erros
 
 ---
 
-## TAREFA 3 — `layout` prop + `AnimatePresence` em lista com filtro ⬜
+## TAREFA 3 — `layout` prop + `AnimatePresence` em lista com filtro [x]
 
 **Prioridade:** Alta | **Esforço:** Médio (≈ 1,5h) | **Impacto:** ⭐⭐⭐⭐⭐
 
@@ -340,17 +340,17 @@ describe('Projetos — filtro com AnimatePresence', () => {
 
 ### Checklist
 
-- [ ] `AnimatePresence mode="popLayout"` envolvendo o map de cards
-- [ ] `layout` prop em `motion.ul` pai e em cada `motion.li`
-- [ ] `key` único e estável em cada item (usar `slug`, nunca `index`)
-- [ ] Filtros com `aria-pressed` para acessibilidade
-- [ ] `layoutId` no indicador de filtro ativo
-- [ ] Testes cobrindo: render inicial, filtro, acessibilidade
-- [ ] `pnpm typecheck` sem erros
+- [x] `AnimatePresence mode="popLayout"` envolvendo o map de cards
+- [x] `layout` prop em `motion.ul` pai e em cada `motion.li`
+- [x] `key` único e estável em cada item (usar `slug`, nunca `index`)
+- [x] Filtros com `aria-pressed` para acessibilidade
+- [x] `layoutId` no indicador de filtro ativo
+- [x] Testes cobrindo: render inicial, filtro, acessibilidade
+- [x] `pnpm typecheck` sem erros
 
 ---
 
-## TAREFA 4 — Contador animado com `useInView` + `animate` ⬜
+## TAREFA 4 — Contador animado com `useInView` + `animate` [x]
 
 **Prioridade:** Média-Alta | **Esforço:** Baixo (≈ 40 min) | **Impacto:** ⭐⭐⭐⭐
 
@@ -474,16 +474,16 @@ describe('AnimatedCounter', () => {
 
 ### Checklist
 
-- [ ] `aria-label` com valor final no `<span>` (acessibilidade de leitores de tela)
-- [ ] `toLocaleString('pt-BR')` para formatação brasileira
-- [ ] `useInView` com `once: true` — anima só uma vez
-- [ ] `useSpring` com parâmetros de damping para suavidade
-- [ ] Testes cobrindo acessibilidade e formatação
-- [ ] `pnpm typecheck` sem erros
+- [x] `aria-label` com valor final no `<span>` (acessibilidade de leitores de tela)
+- [x] `toLocaleString('pt-BR')` para formatação brasileira
+- [x] `useInView` com `once: true` — anima só uma vez
+- [x] `useSpring` com parâmetros de damping para suavidade
+- [x] Testes cobrindo acessibilidade e formatação
+- [x] `pnpm typecheck` sem erros
 
 ---
 
-## TAREFA 5 — `useScroll` + `useTransform` na Hero Section ⬜
+## TAREFA 5 — `useScroll` + `useTransform` na Hero Section [x]
 
 **Prioridade:** Média | **Esforço:** Médio (≈ 1h) | **Impacto:** ⭐⭐⭐
 
@@ -565,17 +565,17 @@ it('Hero não tem violações WCAG após parallax', async () => {
 
 ### Checklist
 
-- [ ] `useScroll` com `target` apontando para o `ref` da seção (não `window`)
-- [ ] `useSpring` no `scrollYProgress` para suavizar
-- [ ] Apenas `transform` e `opacity` sendo animados (zero reflow)
-- [ ] `min-h-[100svh]` (não `100vh`)
-- [ ] `overflow-hidden` no container para evitar scroll horizontal
-- [ ] Teste axe passando após refactor
-- [ ] `pnpm typecheck` sem erros
+- [x] `useScroll` com `target` apontando para o `ref` da seção (não `window`)
+- [x] `useSpring` no `scrollYProgress` para suavizar
+- [x] Apenas `transform` e `opacity` sendo animados (zero reflow)
+- [x] `min-h-[100svh]` (não `100vh`)
+- [x] `overflow-hidden` no container para evitar scroll horizontal
+- [x] Teste axe passando após refactor
+- [x] `pnpm typecheck` sem erros
 
 ---
 
-## TAREFA 6 — Page Transitions com `AnimatePresence` no App Router ⬜
+## TAREFA 6 — Page Transitions com `AnimatePresence` no App Router [x]
 
 **Prioridade:** Média | **Esforço:** Alto (≈ 2h) | **Impacto:** ⭐⭐⭐
 
@@ -672,13 +672,13 @@ test('transição home → projeto não causa layout shift', async ({ page }) =>
 
 ### Checklist
 
-- [ ] `PageTransition` é `"use client"` — layout raiz permanece Server Component
-- [ ] `initial={false}` no `AnimatePresence` — sem animação na primeira carga
-- [ ] `key={pathname}` para detectar mudança de rota
-- [ ] `mode="wait"` — espera a saída antes de animar a entrada
-- [ ] Teste E2E verificando CLS < 0.1 (budget do Lighthouse)
-- [ ] Verificar que `<main>` semântico está preservado (axe)
-- [ ] `pnpm typecheck` sem erros
+- [x] `PageTransition` é `"use client"` — layout raiz permanece Server Component
+- [x] `initial={false}` no `AnimatePresence` — sem animação na primeira carga
+- [x] `key={pathname}` para detectar mudança de rota
+- [x] `mode="wait"` — espera a saída antes de animar a entrada
+- [x] Teste E2E verificando CLS < 0.1 (budget do Lighthouse)
+- [x] Verificar que `<main>` semântico está preservado (axe)
+- [x] `pnpm typecheck` sem erros
 
 ---
 

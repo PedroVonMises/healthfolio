@@ -16,6 +16,11 @@ vi.mock("framer-motion", async () => {
   };
 });
 
+// Mock next/navigation for page transitions testing
+vi.mock("next/navigation", () => ({
+  usePathname: () => "/mock-path",
+}));
+
 /* ------------------------------------------------------------------ */
 /* MotionProvider                                                      */
 /* ------------------------------------------------------------------ */
@@ -148,29 +153,83 @@ describe("TrustMetrics", () => {
     expect(screen.getByText("Adequação LGPD")).toBeInTheDocument();
     expect(screen.getByText("Satisfação do Paciente")).toBeInTheDocument();
   });
+});
 
-  it("renders animated counter elements", async () => {
-    const { default: TrustMetrics } = await import(
-      "@/components/ui/TrustMetrics"
-    );
+/* ------------------------------------------------------------------ */
+/* AnimatedCounter                                                     */
+/* ------------------------------------------------------------------ */
 
-    render(<TrustMetrics />);
-
-    const counters = screen.getAllByTestId("animated-counter");
-    expect(counters).toHaveLength(4);
+describe("AnimatedCounter", () => {
+  it("renderiza com aria-label correto para acessibilidade", async () => {
+    const { AnimatedCounter } = await import("@/components/ui/AnimatedCounter");
+    render(<AnimatedCounter value={98} suffix="%" />);
+    expect(screen.getByLabelText("98%")).toBeInTheDocument();
   });
 
-  it("renders prefix and suffix on counters", async () => {
-    const { default: TrustMetrics } = await import(
-      "@/components/ui/TrustMetrics"
-    );
-
-    render(<TrustMetrics />);
-
-    // The first counter should have "+" prefix and "%" suffix
-    const counters = screen.getAllByTestId("animated-counter");
-    // Initial state: value starts at 0, so the text should contain prefix/suffix
-    expect(counters[0].textContent).toContain("+");
-    expect(counters[0].textContent).toContain("%");
+  it("exibe prefixo e sufixo corretamente no aria-label", async () => {
+    const { AnimatedCounter } = await import("@/components/ui/AnimatedCounter");
+    render(<AnimatedCounter value={1200} prefix="R$ " suffix="+" />);
+    expect(screen.getByLabelText("R$ 1.200+")).toBeInTheDocument();
   });
 });
+
+/* ------------------------------------------------------------------ */
+/* StaggerList & StaggerItem                                           */
+/* ------------------------------------------------------------------ */
+
+describe("StaggerList & StaggerItem", () => {
+  it("renders all items inside the list", async () => {
+    const { StaggerList, StaggerItem } = await import(
+      "@/components/ui/StaggerList"
+    );
+
+    render(
+      <StaggerList>
+        <StaggerItem>Item A</StaggerItem>
+        <StaggerItem>Item B</StaggerItem>
+      </StaggerList>
+    );
+
+    expect(screen.getByText("Item A")).toBeInTheDocument();
+    expect(screen.getByText("Item B")).toBeInTheDocument();
+  });
+
+  it("applies custom classNames", async () => {
+    const { StaggerList, StaggerItem } = await import(
+      "@/components/ui/StaggerList"
+    );
+
+    const { container } = render(
+      <StaggerList className="stagger-list-class">
+        <StaggerItem className="stagger-item-class">Item</StaggerItem>
+      </StaggerList>
+    );
+
+    const list = container.querySelector(".stagger-list-class");
+    const item = container.querySelector(".stagger-item-class");
+
+    expect(list).toBeInTheDocument();
+    expect(item).toBeInTheDocument();
+  });
+});
+
+/* ------------------------------------------------------------------ */
+/* PageTransition                                                      */
+/* ------------------------------------------------------------------ */
+
+describe("PageTransition", () => {
+  it("renders children successfully", async () => {
+    const { PageTransition } = await import(
+      "@/components/ui/PageTransition"
+    );
+
+    render(
+      <PageTransition>
+        <div data-testid="page-content">Page Content</div>
+      </PageTransition>
+    );
+
+    expect(screen.getByTestId("page-content")).toBeInTheDocument();
+  });
+});
+

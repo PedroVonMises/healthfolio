@@ -17,6 +17,8 @@ const technologies = [
   { name: "Playwright", icon: TestTube }
 ];
 
+import { StaggerList, StaggerItem } from "@/components/ui/StaggerList";
+
 function TiltCard({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -80,12 +82,12 @@ export default function TechStack() {
       <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-surface-2 to-transparent z-10 pointer-events-none" />
       
       {/* Container with display flex and gap instead of justify-around to fix overlap */}
-      <div className="flex w-max animate-[marquee_40s_linear_infinite] hover:[animation-play-state:paused] gap-8 pl-8">
+      <StaggerList className="flex w-max animate-[marquee_40s_linear_infinite] hover:[animation-play-state:paused] gap-8 pl-8">
         {/* We render the array twice for the seamless infinite loop */}
         {[...technologies, ...technologies].map((tech, i) => {
           const Icon = tech.icon;
           return (
-            <div key={`${tech.name}-${i}`} className="flex items-center shrink-0 [perspective:1000px]">
+            <StaggerItem key={`${tech.name}-${i}`} className="flex items-center shrink-0 [perspective:1000px]">
               <TiltCard>
                 <div className="p-2 rounded-lg bg-primary/10 text-primary">
                   <Icon strokeWidth={1.5} className="w-5 h-5" />
@@ -94,10 +96,10 @@ export default function TechStack() {
                   {tech.name}
                 </span>
               </TiltCard>
-            </div>
+            </StaggerItem>
           );
         })}
-      </div>
+      </StaggerList>
     </div>
   );
 }

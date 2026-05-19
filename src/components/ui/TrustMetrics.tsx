@@ -1,60 +1,9 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
-import {
-  useMotionValue,
-  useTransform,
-  useInView,
-  animate,
-} from "framer-motion";
+import React from "react";
 import { StaggerContainer } from "./FadeIn";
 import FadeIn from "./FadeIn";
-
-/* ------------------------------------------------------------------ */
-/* Animated Counter — counts from 0 → target when scrolled into view  */
-/* ------------------------------------------------------------------ */
-
-interface AnimatedCounterProps {
-  value: number;
-  prefix?: string;
-  suffix?: string;
-}
-
-function AnimatedCounter({ value, prefix = "", suffix = "" }: AnimatedCounterProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const motionVal = useMotionValue(0);
-  const rounded = useTransform(motionVal, (v) => Math.round(v));
-  const [display, setDisplay] = React.useState(0);
-
-  useEffect(() => {
-    // Subscribe to rounded values
-    const unsubscribe = rounded.on("change", (v) => setDisplay(v));
-    return unsubscribe;
-  }, [rounded]);
-
-  useEffect(() => {
-    if (isInView) {
-      const controls = animate(motionVal, value, {
-        duration: 1.5,
-        ease: "easeOut",
-      });
-      return controls.stop;
-    }
-  }, [isInView, value, motionVal]);
-
-  return (
-    <span ref={ref} data-testid="animated-counter">
-      {prefix}
-      {display}
-      {suffix}
-    </span>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Metrics data                                                        */
-/* ------------------------------------------------------------------ */
+import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 
 const metrics = [
   { label: "Aumento na Conversão", value: 30, prefix: "+", suffix: "%" },
@@ -62,10 +11,6 @@ const metrics = [
   { label: "Adequação LGPD", value: 100, prefix: "", suffix: "%" },
   { label: "Satisfação do Paciente", value: 98, prefix: "", suffix: "%" },
 ];
-
-/* ------------------------------------------------------------------ */
-/* Component                                                           */
-/* ------------------------------------------------------------------ */
 
 export default function TrustMetrics() {
   return (

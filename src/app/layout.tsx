@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import BackgroundBlobs from "@/components/ui/BackgroundBlobs";
 import MotionProvider from "@/components/ui/MotionProvider";
+import { PageTransition } from "@/components/ui/PageTransition";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -55,14 +56,14 @@ export default function RootLayout({
         <PersonJsonLd />
       </head>
       <body className="min-h-screen flex flex-col font-sans relative">
-        <BackgroundBlobs />
-        <Header />
         <MotionProvider>
-          <main className="flex-1 relative z-10">
-            {children}
+          <BackgroundBlobs />
+          <Header />
+          <main className="flex-1 relative z-10 flex flex-col">
+            <PageTransition>{children}</PageTransition>
           </main>
+          <Footer />
         </MotionProvider>
-        <Footer />
         {process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN && (
           <Script
             defer

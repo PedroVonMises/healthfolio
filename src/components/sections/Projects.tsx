@@ -98,6 +98,7 @@ export default function Projects() {
               <button
                 key={cat}
                 onClick={() => setActiveFilter(cat)}
+                aria-pressed={activeFilter === cat}
                 className={`relative rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 ${
                   activeFilter === cat
                     ? "text-text-inverse"
@@ -107,7 +108,7 @@ export default function Projects() {
                 {/* Animated pill background */}
                 {activeFilter === cat && (
                   <motion.span
-                    layoutId="activeProjectFilter"
+                    layoutId="categoria-ativa"
                     className="absolute inset-0 rounded-full bg-primary shadow-md shadow-primary/20"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />

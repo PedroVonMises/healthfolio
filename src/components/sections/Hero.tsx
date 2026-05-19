@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import Spotlight from "@/components/ui/Spotlight";
 import FadeIn from "@/components/ui/FadeIn";
 import { StaggerContainer } from "@/components/ui/FadeIn";
@@ -10,21 +10,39 @@ import DigitalClock from "@/components/ui/DigitalClock";
 import TrustMetrics from "@/components/ui/TrustMetrics";
 
 export default function Hero() {
-  const { scrollY } = useScroll();
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
 
-  // Parallax layers — subtle values to avoid motion sickness
-  const badgeY = useTransform(scrollY, [0, 500], [0, -60]);
-  const ctaY = useTransform(scrollY, [0, 500], [0, 30]);
-  const bgY = useTransform(scrollY, [0, 500], [0, -100]);
+  const smoothProgress = useSpring(scrollYProgress, {
+    damping: 30,
+    stiffness: 100,
+  });
+
+  const y = useTransform(smoothProgress, [0, 1], ["0%", "-30%"]);
+  const opacity = useTransform(smoothProgress, [0, 0.6], [1, 0]);
+  const scale = useTransform(smoothProgress, [0, 1], [1, 0.95]);
+
+  const badgeY = useTransform(smoothProgress, [0, 1], ["0px", "-50px"]);
+  const ctaY = useTransform(smoothProgress, [0, 1], ["0px", "30px"]);
 
   return (
-    <section className="relative bg-bg pt-24 pb-16 sm:pt-32 sm:pb-24 lg:pb-32">
+    <section
+      ref={containerRef}
+      id="hero"
+      className="relative bg-bg pt-24 pb-16 sm:pt-32 sm:pb-24 lg:pb-32 min-h-[100svh] overflow-hidden"
+    >
       {/* Parallax background layer */}
-      <motion.div style={{ y: bgY }} className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0">
         <Spotlight className="absolute inset-0 z-0" />
-      </motion.div>
+      </div>
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
+      <motion.div
+        style={{ y, opacity, scale }}
+        className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10"
+      >
         <StaggerContainer className="mx-auto max-w-3xl text-center" staggerDelay={0.12}>
           <FadeIn>
             <motion.div
@@ -82,7 +100,7 @@ export default function Hero() {
 
         {/* Métricas de conversão para o público-alvo */}
         <TrustMetrics />
-      </div>
+      </motion.div>
     </section>
   );
 }
