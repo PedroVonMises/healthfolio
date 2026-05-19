@@ -4,24 +4,25 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Quote, ChevronLeft, ChevronRight, Award } from 'lucide-react';
 import FadeIn from '@/components/ui/FadeIn';
+import useSWR from 'swr';
 
-const testimonials = [
+const fallbackTestimonials = [
   {
-    id: 1,
+    id: "1",
     quote: "A integração do agendamento com nosso WhatsApp reduziu em 40% o tempo que a recepção passava no telefone. A agenda agora vive cheia e sem buracos.",
     author: "Dr. Marcelo S.",
     role: "Sócio-Diretor, Clínica de Ortopedia (Vitória)",
     avatar: "M",
   },
   {
-    id: 2,
+    id: "2",
     quote: "Estávamos usando 4 planilhas diferentes para fechar o mês. O dashboard criado pelo Pedro nos deu clareza absoluta sobre qual convênio realmente dá lucro.",
     author: "Dra. Juliana T.",
     role: "Gestora Clínica, Dermatologia (Vila Velha)",
     avatar: "J",
   },
   {
-    id: 3,
+    id: "3",
     quote: "A preocupação com a LGPD foi o diferencial. Todo o portal do paciente foi construído com criptografia desde o primeiro dia. Posso dormir tranquilo.",
     author: "Ricardo M.",
     role: "Administrador Hospitalar",
@@ -29,9 +30,27 @@ const testimonials = [
   }
 ];
 
+const fetcher = (url: string) => fetch(url).then((res) => res.json()).then((data) => {
+  // Mapping the API response to match the existing schema for easy integration
+  return data.map((t: any) => ({
+    id: t.id,
+    quote: t.text,
+    author: t.name,
+    role: t.role,
+    avatar: t.name.charAt(0),
+  }));
+});
+
 export default function Testimonials() {
+  const { data, isLoading, error } = useSWR('/api/testimonials', fetcher, {
+    fallbackData: fallbackTestimonials,
+    revalidateOnFocus: false,
+  });
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
+
+  const testimonials = data && !error ? data : fallbackTestimonials;
 
   const next = () => {
     setDirection(1);
@@ -46,7 +65,7 @@ export default function Testimonials() {
   useEffect(() => {
     const timer = setInterval(next, 8000);
     return () => clearInterval(timer);
-  }, []);
+  }, [testimonials.length]);
 
   const variants = {
     enter: (direction: number) => ({
@@ -88,38 +107,52 @@ export default function Testimonials() {
           </div>
 
           <div className="relative h-[350px] sm:h-[250px] w-full perspective-1000">
-            <AnimatePresence initial={false} custom={direction} mode="wait">
-              <motion.div
-                key={currentIndex}
-                custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{
-                  x: { type: "spring", stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.2 },
-                  scale: { duration: 0.2 }
-                }}
-                className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-12"
-              >
-                <p className="text-lg sm:text-xl leading-relaxed text-text text-balance italic">
-                  &quot;{testimonials[currentIndex].quote}&quot;
-                </p>
-                
-                <div className="mt-8 flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-surface-offset flex items-center justify-center shadow-inner ring-1 ring-border">
-                    <span className="font-sans font-semibold text-text-muted text-base">
-                      {testimonials[currentIndex].avatar}
-                    </span>
-                  </div>
-                  <div className="text-left">
-                    <div className="font-semibold text-text">{testimonials[currentIndex].author}</div>
-                    <div className="text-sm text-text-muted">{testimonials[currentIndex].role}</div>
-                  </div>
+            {isLoading && !data ? (
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-12 animate-pulse">
+                <div className="h-6 bg-surface-offset rounded w-3/4 mb-4"></div>
+                <div className="h-6 bg-surface-offset rounded w-2/3 mb-8"></div>
+                <div className="flex items-center gap-4">
+                   <div className="w-12 h-12 rounded-full bg-surface-offset"></div>
+                   <div className="text-left flex flex-col gap-2">
+                     <div className="h-4 bg-surface-offset rounded w-24"></div>
+                     <div className="h-3 bg-surface-offset rounded w-32"></div>
+                   </div>
                 </div>
-              </motion.div>
-            </AnimatePresence>
+              </div>
+            ) : (
+              <AnimatePresence initial={false} custom={direction} mode="wait">
+                <motion.div
+                  key={currentIndex}
+                  custom={direction}
+                  variants={variants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{
+                    x: { type: "spring", stiffness: 300, damping: 30 },
+                    opacity: { duration: 0.2 },
+                    scale: { duration: 0.2 }
+                  }}
+                  className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-12"
+                >
+                  <p className="text-lg sm:text-xl leading-relaxed text-text text-balance italic">
+                    &quot;{testimonials[currentIndex].quote}&quot;
+                  </p>
+                  
+                  <div className="mt-8 flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-surface-offset flex items-center justify-center shadow-inner ring-1 ring-border">
+                      <span className="font-sans font-semibold text-text-muted text-base">
+                        {testimonials[currentIndex].avatar}
+                      </span>
+                    </div>
+                    <div className="text-left">
+                      <div className="font-semibold text-text">{testimonials[currentIndex].author}</div>
+                      <div className="text-sm text-text-muted">{testimonials[currentIndex].role}</div>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            )}
           </div>
 
           <div className="flex items-center justify-center gap-6 mt-8 relative z-10">

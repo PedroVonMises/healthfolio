@@ -19,7 +19,7 @@ const technologies = [
 
 import { StaggerList, StaggerItem } from "@/components/ui/StaggerList";
 
-function TiltCard({ children }: { children: React.ReactNode }) {
+const TiltCard = React.memo(function TiltCard({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
 
   const x = useMotionValue(0);
@@ -72,7 +72,7 @@ function TiltCard({ children }: { children: React.ReactNode }) {
       </div>
     </motion.div>
   );
-}
+});
 
 export default function TechStack() {
   return (

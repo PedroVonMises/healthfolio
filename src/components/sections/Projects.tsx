@@ -6,7 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import FadeIn from "@/components/ui/FadeIn";
 import { StaggerContainer } from "@/components/ui/FadeIn";
 import Spotlight from "@/components/ui/Spotlight";
-import BeforeAfterSlider from "@/components/ui/BeforeAfterSlider";
+import dynamic from "next/dynamic";
+const BeforeAfterSlider = dynamic(() => import("@/components/ui/BeforeAfterSlider"), { ssr: false });
 import { ArrowRight, Image as ImageIcon, FolderCheck } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
@@ -54,8 +55,10 @@ const categories = [
 /* Component                                                           */
 /* ------------------------------------------------------------------ */
 
+import { useQueryState } from 'nuqs';
+
 export default function Projects() {
-  const [activeFilter, setActiveFilter] = useState("Todos");
+  const [activeFilter, setActiveFilter] = useQueryState('categoria', { defaultValue: 'Todos' });
 
   const filtered =
     activeFilter === "Todos"
