@@ -21,6 +21,7 @@ const projects = [
     description:
       "Situação: Clínica perdia 15% dos agendamentos por demora no WhatsApp. Solução: Ambiente seguro integrado ao ERP. Resultado: Redução de 35% nas chamadas telefônicas e aumento de 22% em consultas efetivadas no primeiro mês.",
     tags: ["Next.js", "Tailwind", "Integração ERP"],
+    image: "/portaldopaciente.png",
   },
   {
     id: "dashboard-gestao",
@@ -29,6 +30,7 @@ const projects = [
     description:
       "Situação: Gestão às cegas com fechamento mensal demorado. Solução: Dashboard consolidando faturamento por convênio e métricas de no-show. Resultado: Substituiu 4 planilhas complexas e acelerou a tomada de decisão financeira.",
     tags: ["React", "Data Viz", "API REST"],
+    image: "/painel.png",
   },
   {
     id: "agendamento-whatsapp",
@@ -37,6 +39,7 @@ const projects = [
     description:
       "Situação: Sala de espera lotada e pacientes insatisfeitos. Solução: Totem sincronizado com agendamento web e notificações ativas de WhatsApp. Resultado: Tempo de espera na recepção caiu pela metade.",
     tags: ["TypeScript", "Integração WhatsApp"],
+    image: "/auto.png",
   },
 ];
 
@@ -82,10 +85,10 @@ export default function Projects() {
           <FadeIn>
             <div className="mx-auto mt-12 max-w-5xl mb-16">
               <BeforeAfterSlider
-                beforeLabel="Recepção (Caos & Papel)"
-                afterLabel="Autoatendimento & Dashboard"
-                beforeImage="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=1000&auto=format&fit=crop"
-                afterImage="/dashboard.png"
+                beforeLabel="Recepção"
+                afterLabel="Autoatendimento"
+                beforeImage="/ANTES.png"
+                afterImage="/DEPOIS.png"
               />
             </div>
           </FadeIn>
@@ -140,8 +143,12 @@ export default function Projects() {
                         <div className="w-2.5 h-2.5 rounded-full bg-amber-400/80" />
                         <div className="w-2.5 h-2.5 rounded-full bg-green-400/80" />
                       </div>
-                      <div className="aspect-[16/9] w-full bg-surface-2 object-cover sm:aspect-[2/1] lg:aspect-[3/2] flex items-center justify-center transition-transform duration-700 group-hover:scale-105">
-                        <ImageIcon className="h-8 w-8 text-text-faint transition-colors duration-500 group-hover:text-primary/50" />
+                      <div className="aspect-[16/9] w-full bg-surface-2 overflow-hidden sm:aspect-[2/1] lg:aspect-[3/2] flex items-center justify-center transition-transform duration-700 group-hover:scale-105 relative">
+                        {project.image ? (
+                          <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                        ) : (
+                          <ImageIcon className="h-8 w-8 text-text-faint transition-colors duration-500 group-hover:text-primary/50" />
+                        )}
                       </div>
                     </div>
                     <div className="max-w-xl flex flex-col flex-1 w-full">
