@@ -27,7 +27,7 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
       - name: Unit + Integration tests
-        run: npm run test:unit -- --coverage
+        run: npm run test:unit -- --coverage --reporter=verbose
       - uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

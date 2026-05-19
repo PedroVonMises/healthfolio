@@ -4,6 +4,7 @@ import { PersonJsonLd } from "@/components/seo/JsonLd";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import BackgroundBlobs from "@/components/ui/BackgroundBlobs";
+import MotionProvider from "@/components/ui/MotionProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -56,9 +57,11 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col font-sans relative">
         <BackgroundBlobs />
         <Header />
-        <main className="flex-1 relative z-10">
-          {children}
-        </main>
+        <MotionProvider>
+          <main className="flex-1 relative z-10">
+            {children}
+          </main>
+        </MotionProvider>
         <Footer />
         {process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN && (
           <Script
