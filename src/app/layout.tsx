@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import BackgroundBlobs from "@/components/ui/BackgroundBlobs";
 import MotionProvider from "@/components/ui/MotionProvider";
 import { PageTransition } from "@/components/ui/PageTransition";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -66,7 +67,9 @@ export default function RootLayout({
           <BackgroundBlobs />
           <Header />
           <main id="main-content" className="flex-1 relative z-10 flex flex-col">
-            <PageTransition>{children}</PageTransition>
+            <NuqsAdapter>
+              <PageTransition>{children}</PageTransition>
+            </NuqsAdapter>
           </main>
           <Footer />
         </MotionProvider>

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import ThemeToggle from '@/components/ui/ThemeToggle';
+import ShinyButton from '@/components/ui/ShinyButton';
 import { motion, useScroll, useSpring, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
@@ -74,16 +75,12 @@ export default function Header() {
         </nav>
         <div className="flex flex-1 items-center justify-end gap-x-4">
           <ThemeToggle />
-          <a
+          <ShinyButton
             href="#contato"
-            className={`hidden sm:inline-flex text-sm font-semibold leading-6 transition-all duration-300 ${
-              isScrolled 
-                ? 'rounded-full bg-primary px-5 py-2 text-text-inverse hover:bg-primary-hover hover:-translate-y-0.5 shadow-md shadow-primary/20' 
-                : 'text-text hover:text-primary'
-            }`}
+            className="hidden sm:inline-flex"
           >
-            Fale Comigo {isScrolled ? '' : <span aria-hidden="true" className="ml-1">&rarr;</span>}
-          </a>
+            Fale Comigo <span aria-hidden="true" className="ml-1 group-hover:translate-x-1 transition-transform">&rarr;</span>
+          </ShinyButton>
           <button 
             onClick={() => setMobileMenuOpen(true)}
             className="md:hidden p-2 text-text hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded-md"
