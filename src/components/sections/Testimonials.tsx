@@ -164,7 +164,7 @@ export default function Testimonials() {
               <ChevronLeft className="w-5 h-5" />
             </button>
             <div className="flex gap-2">
-              {testimonials.map((_, idx) => (
+              {testimonials.map((_: any, idx: number) => (
                 <button
                   key={idx}
                   onClick={() => {
