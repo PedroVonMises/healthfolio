@@ -31,7 +31,7 @@ Lista de estudo/implementação ordenada por prioridade.
   - Esforço: Médio
   - Posição: 5ª
 
-- [ ] **Focus management + skip links**
+- [x] **Focus management + skip links**
   - Prioridade: —
   - Esforço: —
   - Posição: 6ª
