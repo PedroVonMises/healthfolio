@@ -1,14 +1,12 @@
-import { NextResponse } from 'next/server';
-import { Ratelimit } from '@upstash/ratelimit';
-import { Redis } from '@upstash/redis';
-import { headers } from 'next/headers';
+'use server';
+
 import { Resend } from 'resend';
 import { ContactSchema } from '@/lib/validations';
+import { headers } from 'next/headers';
+import { Ratelimit } from '@upstash/ratelimit';
+import { Redis } from '@upstash/redis';
 
-// Initialize Resend with API key
 const resend = new Resend(process.env.RESEND_API_KEY || 're_dummy');
-
-// Initialize Redis only if tokens are provided (to prevent crashing in dev without env vars)
 const redisUrl = process.env.UPSTASH_REDIS_REST_URL;
 const redisToken = process.env.UPSTASH_REDIS_REST_TOKEN;
 
@@ -16,38 +14,48 @@ let ratelimit: Ratelimit | null = null;
 
 if (redisUrl && redisToken) {
   ratelimit = new Ratelimit({
-    redis: new Redis({
-      url: redisUrl,
-      token: redisToken,
-    }),
+    redis: new Redis({ url: redisUrl, token: redisToken }),
     limiter: Ratelimit.slidingWindow(3, '1 h'),
   });
 }
 
-export async function POST(req: Request) {
+export type ActionState = {
+  status: 'idle' | 'success' | 'error';
+  message?: string;
+  fieldErrors?: Record<string, string[]>;
+};
+
+export async function submitContactForm(prevState: ActionState, formData: FormData): Promise<ActionState> {
   try {
     const headersList = await headers();
     const ip = headersList.get('x-forwarded-for') ?? 'anonymous';
     
-    // Apply rate limiting if Redis is configured
     if (ratelimit) {
       const { success } = await ratelimit.limit(ip);
       if (!success) {
-        return NextResponse.json({ error: 'Muitas requisições. Tente novamente mais tarde.' }, { status: 429 });
+        return { status: 'error', message: 'Muitas requisições. Tente novamente mais tarde.' };
       }
     }
 
-    const body = await req.json();
-    const parsed = ContactSchema.safeParse(body);
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      company: formData.get('company'),
+      message: formData.get('message'),
+    };
+
+    const parsed = ContactSchema.safeParse(data);
     
     if (!parsed.success) {
-      return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
+      return { 
+        status: 'error', 
+        message: 'Dados inválidos.',
+        fieldErrors: parsed.error.flatten().fieldErrors 
+      };
     }
 
     const { name, email, company, message } = parsed.data;
 
-    // Send email via Resend
-    // Skip if RESEND_API_KEY is not set (e.g., local development without env vars)
     if (process.env.RESEND_API_KEY) {
       await resend.emails.send({
         from: 'Portfolio <contato@pedroaugusto.dev>',
@@ -60,11 +68,9 @@ export async function POST(req: Request) {
       console.warn('RESEND_API_KEY is not set. Email not sent. [PII Redacted for LGPD compliance]');
     }
 
-    // LGPD: Data is not persisted in any database, only sent via email
-    return NextResponse.json({ success: true }, { status: 200 });
-
+    return { status: 'success' };
   } catch (error) {
     console.error('Error processing contact form:', error);
-    return NextResponse.json({ error: 'Erro interno do servidor' }, { status: 500 });
+    return { status: 'error', message: 'Erro interno do servidor' };
   }
 }

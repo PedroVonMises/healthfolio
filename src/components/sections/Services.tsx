@@ -69,7 +69,7 @@ export default function Services() {
           >
             {services.map((service) => (
               <FadeIn key={service.id} className={service.className}>
-                <div
+                <dl
                   className={`relative flex flex-col rounded-3xl bg-bg p-8 shadow-sm ring-1 ring-border transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:ring-primary/40 h-full overflow-hidden group ${
                     service.className?.includes("bg-gradient")
                       ? "bg-gradient-to-br from-bg to-primary-highlight/10"
@@ -88,7 +88,7 @@ export default function Services() {
                   <dd className="relative z-10 mt-4 flex flex-auto flex-col text-base leading-7 text-text-muted">
                     <p className="flex-auto">{service.description}</p>
                   </dd>
-                </div>
+                </dl>
               </FadeIn>
             ))}
           </StaggerContainer>

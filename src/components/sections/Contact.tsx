@@ -1,43 +1,15 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useActionState } from 'react';
 import Link from 'next/link';
 import FadeIn from '@/components/ui/FadeIn';
 import { motion } from 'framer-motion';
 import { Send, CheckCircle2, AlertCircle, MessageCircle } from 'lucide-react';
+import { submitContactForm } from '@/app/actions/contact';
 
 export default function Contact() {
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [state, formAction, isPending] = useActionState(submitContactForm, { status: 'idle' });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setStatus('loading');
-    
-    try {
-      const formData = new FormData(e.currentTarget);
-      const data = {
-        name: formData.get('name'),
-        email: formData.get('email'),
-        company: formData.get('company'),
-        message: formData.get('message'),
-      };
-
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to send message');
-      }
-
-      setStatus('success');
-    } catch (error) {
-      console.error(error);
-      setStatus('error');
-    }
-  };
 
   return (
     <section id="contato" className="bg-surface py-24 sm:py-32 border-t border-divider relative overflow-hidden">
@@ -77,7 +49,7 @@ export default function Contact() {
         </FadeIn>
 
         <div className="mx-auto max-w-xl">
-          {status === 'success' ? (
+          {state.status === 'success' ? (
             <FadeIn>
               <div className="rounded-2xl bg-bg/70 backdrop-blur-xl border border-black/5 dark:border-white/10 p-10 text-center shadow-2xl shadow-primary/5 ring-1 ring-inset ring-primary/20 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-white/10 dark:from-white/10 dark:to-transparent opacity-50 dark:opacity-20 pointer-events-none" />
@@ -85,7 +57,7 @@ export default function Contact() {
                 <h3 className="font-display text-2xl font-semibold text-primary mb-2 relative z-10">Mensagem enviada!</h3>
                 <p className="text-text-muted mb-8 relative z-10">Agradeço o contato. Retornarei o mais breve possível para entendermos os desafios da sua clínica.</p>
                 <button 
-                  onClick={() => setStatus('idle')}
+                  onClick={() => window.location.reload()}
                   className="rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-primary shadow-sm hover:bg-surface transition-all ring-1 ring-inset ring-primary/20 relative z-10"
                 >
                   Enviar nova mensagem
@@ -94,13 +66,13 @@ export default function Contact() {
             </FadeIn>
           ) : (
             <FadeIn delay={0.2}>
-              <form onSubmit={handleSubmit} className="relative space-y-6 bg-bg/70 backdrop-blur-xl p-8 rounded-2xl shadow-2xl shadow-black/5 dark:shadow-black/40 border border-black/5 dark:border-white/10 ring-1 ring-border overflow-hidden">
+              <form action={formAction} className="relative space-y-6 bg-bg/70 backdrop-blur-xl p-8 rounded-2xl shadow-2xl shadow-black/5 dark:shadow-black/40 border border-black/5 dark:border-white/10 ring-1 ring-border overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-white/10 dark:from-white/10 dark:to-transparent opacity-50 dark:opacity-20 pointer-events-none" />
-                {status === 'error' && (
+                {state.status === 'error' && (
                   <div role="alert" className="rounded-md bg-red-50 p-4 mb-6 ring-1 ring-red-200 flex gap-3">
                     <AlertCircle className="h-5 w-5 text-red-600 shrink-0" />
                     <p className="text-sm text-red-800">
-                      Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.
+                      {state.message || 'Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.'}
                     </p>
                   </div>
                 )}
@@ -176,10 +148,10 @@ export default function Contact() {
                 </p>
                 <button
                   type="submit"
-                  disabled={status === 'loading'}
+                  disabled={isPending}
                   className="group flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-semibold text-text-inverse shadow-md shadow-primary/20 hover:bg-primary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:-translate-y-0.5 w-full sm:w-auto"
                 >
-                  {status === 'loading' ? 'Enviando...' : (
+                  {isPending ? 'Enviando...' : (
                     <>
                       Quero uma análise gratuita
                       <Send className="h-4 w-4 shrink-0 group-hover:translate-x-1 transition-transform" />

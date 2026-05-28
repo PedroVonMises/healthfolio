@@ -30,9 +30,16 @@ const fallbackTestimonials = [
   }
 ];
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json()).then((data) => {
+interface TestimonialResponse {
+  id: string;
+  text: string;
+  name: string;
+  role: string;
+}
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json()).then((data: TestimonialResponse[]) => {
   // Mapping the API response to match the existing schema for easy integration
-  return data.map((t: any) => ({
+  return data.map((t) => ({
     id: t.id,
     quote: t.text,
     author: t.name,
@@ -164,7 +171,7 @@ export default function Testimonials() {
               <ChevronLeft className="w-5 h-5" />
             </button>
             <div className="flex gap-2">
-              {testimonials.map((_: any, idx: number) => (
+              {testimonials.map((_: unknown, idx: number) => (
                 <button
                   key={idx}
                   onClick={() => {

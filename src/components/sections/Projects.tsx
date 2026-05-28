@@ -9,6 +9,7 @@ import Spotlight from "@/components/ui/Spotlight";
 import dynamic from "next/dynamic";
 const BeforeAfterSlider = dynamic(() => import("@/components/ui/BeforeAfterSlider"), { ssr: false });
 import { ArrowRight, Image as ImageIcon, FolderCheck } from "lucide-react";
+import Image from "next/image";
 
 /* ------------------------------------------------------------------ */
 /* Data                                                                */
@@ -148,7 +149,7 @@ export default function Projects() {
                       </div>
                       <div className="aspect-[16/9] w-full bg-surface-2 overflow-hidden sm:aspect-[2/1] lg:aspect-[3/2] flex items-center justify-center transition-transform duration-700 group-hover:scale-105 relative">
                         {project.image ? (
-                          <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                          <Image src={project.image} alt={project.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                         ) : (
                           <ImageIcon className="h-8 w-8 text-text-faint transition-colors duration-500 group-hover:text-primary/50" />
                         )}

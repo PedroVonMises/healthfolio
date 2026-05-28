@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { GripVertical } from 'lucide-react';
+import Image from 'next/image';
 
 interface BeforeAfterSliderProps {
   beforeImage?: string;
@@ -20,44 +21,55 @@ export default function BeforeAfterSlider({
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleMove = (clientX: number) => {
+  const handleMove = React.useCallback((clientX: number) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
     const percent = (x / rect.width) * 100;
     setSliderPosition(percent);
-  };
+  }, []);
 
-  const onMouseMove = (e: MouseEvent | React.MouseEvent) => {
-    if (!isDragging) return;
-    handleMove(e.clientX);
-  };
-
-  const onTouchMove = (e: TouchEvent | React.TouchEvent) => {
-    if (!isDragging) return;
-    handleMove(e.touches[0].clientX);
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') {
+      setSliderPosition((prev) => Math.max(0, prev - 5));
+    } else if (e.key === 'ArrowRight') {
+      setSliderPosition((prev) => Math.min(100, prev + 5));
+    }
   };
 
   useEffect(() => {
+    const handleMoveEvent = (e: MouseEvent | TouchEvent) => {
+      const clientX = 'touches' in e ? e.touches[0].clientX : (e as MouseEvent).clientX;
+      handleMove(clientX);
+    };
+    
+    const handleDragEnd = () => setIsDragging(false);
+
     if (isDragging) {
-      window.addEventListener('mousemove', onMouseMove);
-      window.addEventListener('mouseup', () => setIsDragging(false));
-      window.addEventListener('touchmove', onTouchMove);
-      window.addEventListener('touchend', () => setIsDragging(false));
+      window.addEventListener('mousemove', handleMoveEvent);
+      window.addEventListener('mouseup', handleDragEnd);
+      window.addEventListener('touchmove', handleMoveEvent);
+      window.addEventListener('touchend', handleDragEnd);
     }
     return () => {
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('mouseup', () => setIsDragging(false));
-      window.removeEventListener('touchmove', onTouchMove);
-      window.removeEventListener('touchend', () => setIsDragging(false));
+      window.removeEventListener('mousemove', handleMoveEvent);
+      window.removeEventListener('mouseup', handleDragEnd);
+      window.removeEventListener('touchmove', handleMoveEvent);
+      window.removeEventListener('touchend', handleDragEnd);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDragging]);
+  }, [isDragging, handleMove]);
 
   return (
     <div 
       className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] rounded-2xl overflow-hidden cursor-ew-resize select-none bg-surface-2 border border-border shadow-lg"
       ref={containerRef}
+      role="slider"
+      aria-valuenow={Math.round(sliderPosition)}
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-label="Comparador Antes e Depois"
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
       onMouseDown={(e) => {
         setIsDragging(true);
         handleMove(e.clientX);
@@ -70,8 +82,7 @@ export default function BeforeAfterSlider({
       {/* Imagem "Antes" (Fundo) */}
       <div className="absolute inset-0 w-full h-full bg-surface-offset flex items-center justify-center p-8">
         {beforeImage ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={beforeImage} alt="Antes" loading="lazy" decoding="async" className="w-full h-full object-cover opacity-60 grayscale" />
+          <Image src={beforeImage} alt="Antes" fill sizes="(max-width: 768px) 100vw, 80vw" className="object-cover opacity-60 grayscale" />
         ) : (
           <div className="text-center">
             <div className="w-16 h-16 bg-bg rounded shadow-sm mx-auto mb-4 border border-border flex items-center justify-center">
@@ -88,8 +99,7 @@ export default function BeforeAfterSlider({
         style={{ clipPath: `inset(0 0 0 ${sliderPosition}%)` }}
       >
         {afterImage ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={afterImage} alt="Depois" loading="lazy" decoding="async" className="w-full h-full object-cover" />
+          <Image src={afterImage} alt="Depois" fill sizes="(max-width: 768px) 100vw, 80vw" className="object-cover" />
         ) : (
           <div className="text-center w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-bg to-primary-highlight/20 relative">
             <div className="w-64 h-32 bg-bg rounded-lg shadow-md border border-border p-4 flex flex-col gap-2">

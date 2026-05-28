@@ -63,33 +63,37 @@ export default function ROICalculator() {
           <FadeIn delay={0.2}>
             <div className="bg-surface p-8 rounded-3xl shadow-sm ring-1 ring-border">
               <div className="mb-8">
-                <label className="flex justify-between text-sm font-semibold text-text mb-4">
+                <label htmlFor="consultas-slider" className="flex justify-between text-sm font-semibold text-text mb-4">
                   <span>Consultas por Mês</span>
                   <span className="text-primary">{consultas} consultas</span>
                 </label>
                 <input
+                  id="consultas-slider"
                   type="range"
                   min="100"
                   max="2000"
                   step="50"
                   value={consultas}
                   onChange={(e) => setConsultas(Number(e.target.value))}
+                  aria-label="Consultas por Mês"
                   className="w-full h-2 bg-surface-offset rounded-lg appearance-none cursor-pointer accent-primary"
                 />
               </div>
 
               <div>
-                <label className="flex justify-between text-sm font-semibold text-text mb-4">
+                <label htmlFor="ticket-slider" className="flex justify-between text-sm font-semibold text-text mb-4">
                   <span>Ticket Médio (R$)</span>
                   <span className="text-primary">R$ {ticket}</span>
                 </label>
                 <input
+                  id="ticket-slider"
                   type="range"
                   min="100"
                   max="1000"
                   step="50"
                   value={ticket}
                   onChange={(e) => setTicket(Number(e.target.value))}
+                  aria-label="Ticket Médio"
                   className="w-full h-2 bg-surface-offset rounded-lg appearance-none cursor-pointer accent-primary"
                 />
               </div>

@@ -7,7 +7,22 @@ import BackgroundBlobs from "@/components/ui/BackgroundBlobs";
 import MotionProvider from "@/components/ui/MotionProvider";
 import { PageTransition } from "@/components/ui/PageTransition";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { Instrument_Serif, Work_Sans } from "next/font/google";
 import "./globals.css";
+
+const instrumentSerif = Instrument_Serif({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const workSans = Work_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-body",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://pedroaugusto.dev"),
@@ -50,13 +65,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning className="scroll-smooth">
       <head>
-        <link
-          href="https://api.fontshare.com/v2/css?f[]=zodiak@400,500,700&f[]=general-sans@400,500,600&display=swap"
-          rel="stylesheet"
-        />
         <PersonJsonLd />
       </head>
-      <body className="min-h-screen flex flex-col font-sans relative">
+      <body className={`min-h-screen flex flex-col font-sans relative ${instrumentSerif.variable} ${workSans.variable}`}>
         <MotionProvider>
           <a
             href="#main-content"
