@@ -49,9 +49,9 @@ export default function Hero() {
 
               <FadeIn>
                 <p className="mt-6 text-base leading-7 text-text-muted max-w-[50ch]">
-                  Portais de paciente e agendamento inteligente para clínicas
-                  privadas na Grande Vitória que eliminam no-shows e liberam
-                  sua equipe.
+                  Portais de agendamento e dashboards que eliminam no-shows e
+                  devolvem 10+ horas de administrativo por semana — para
+                  clínicas privadas na Grande Vitória.
                 </p>
               </FadeIn>
 

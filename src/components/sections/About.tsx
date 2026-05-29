@@ -43,7 +43,7 @@ export default function About() {
                     href="#contato"
                     className="group flex items-center gap-2 text-sm font-semibold leading-6 text-text hover:text-primary transition-colors"
                   >
-                    Quero uma análise gratuita
+                    Começar análise gratuita
                     <span
                       aria-hidden="true"
                       className="group-hover:translate-x-1 transition-transform duration-300"

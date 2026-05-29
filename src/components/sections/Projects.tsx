@@ -23,6 +23,7 @@ const projects = [
     desafio: "Clínica perdia 15% dos agendamentos devido à lentidão no atendimento via WhatsApp.",
     solucao: "Ambiente seguro integrado diretamente ao ERP para agendamento automático de exames.",
     resultado: "Redução de 35% nas chamadas telefônicas e aumento de 22% em consultas efetivadas no 1º mês.",
+    relevancia: "Se sua recepção está saturada, esse modelo pode reduzir chamadas em 30–45%.",
     tags: ["Next.js", "Tailwind CSS", "Integração ERP"],
     image: "/portaldopaciente.png",
   },
@@ -33,6 +34,7 @@ const projects = [
     desafio: "Gestão às cegas com fechamento financeiro mensal demorado e relatórios manuais de no-show.",
     solucao: "Dashboard em tempo real consolidando faturamento por convênio e absenteísmo médico.",
     resultado: "Substituição completa de 4 planilhas complexas, agilizando fechamentos e tomadas de decisão.",
+    relevancia: "Se você ainda fecha o mês em planilhas, esse painel pode eliminar esse trabalho em 1–2 semanas.",
     tags: ["React", "Data Viz", "API REST"],
     image: "/painel.png",
   },
@@ -43,6 +45,7 @@ const projects = [
     desafio: "Sala de espera lotada de forma recorrente e insatisfação no processo de recepção física.",
     solucao: "Totem eletrônico sincronizado com agendamento web e alertas instantâneos via WhatsApp.",
     resultado: "Redução de 50% no tempo médio de espera do paciente na recepção da clínica.",
+    relevancia: "Se sua sala de espera acumula filas, esse fluxo pode reduzir o tempo médio em até 50%.",
     tags: ["TypeScript", "Integração WhatsApp"],
     image: "/auto.png",
   },
@@ -195,6 +198,11 @@ export default function Projects() {
                             <span className="font-bold text-[11px] uppercase tracking-wider text-primary block mb-0.5">Resultado</span>
                             <p className="text-text font-semibold">{project.resultado}</p>
                           </div>
+                          {project.relevancia && (
+                            <p className="mt-1 text-[13px] leading-snug text-text-muted italic border-l-2 border-primary/40 pl-3">
+                              {project.relevancia}
+                            </p>
+                          )}
                         </div>
                       </div>
                       
@@ -222,7 +230,7 @@ export default function Projects() {
               href="#contato"
               className="group flex items-center gap-2 rounded-full bg-surface-2 px-6 py-2.5 text-sm font-semibold text-text shadow-sm hover:bg-surface-offset ring-1 ring-inset ring-border transition-all hover:ring-primary/50"
             >
-              Ver como isso funciona na minha especialidade
+              Agendar descoberta da minha especialidade
               <ArrowRight className="h-4 w-4 text-text-muted group-hover:text-primary transition-colors" />
             </Link>
           </div>

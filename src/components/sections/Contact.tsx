@@ -60,11 +60,22 @@ export default function Contact() {
               <div className="rounded-2xl bg-bg/70 backdrop-blur-xl border border-black/5 dark:border-white/10 p-10 text-center shadow-2xl shadow-primary/5 ring-1 ring-inset ring-primary/20 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-white/10 dark:from-white/10 dark:to-transparent opacity-50 dark:opacity-20 pointer-events-none" />
                 <CheckCircle2 className="h-16 w-16 text-primary mx-auto mb-6 relative z-10" strokeWidth={1.5} />
-                <h3 className="font-display text-2xl font-semibold text-primary mb-2 relative z-10">Mensagem enviada!</h3>
-                <p className="text-text-muted mb-8 relative z-10">Agradeço o contato. Retornarei o mais breve possível para entendermos os desafios da sua clínica.</p>
-                <button 
+                <h3 className="font-display text-2xl font-semibold text-primary mb-2 relative z-10">Mensagem recebida!</h3>
+                <p className="text-text-muted mb-2 relative z-10">
+                  Respondo em até 24h por e-mail. Se for urgente, fale diretamente no{" "}
+                  <a
+                    href="https://wa.me/5527992018590"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-primary underline hover:no-underline transition-all"
+                  >
+                    WhatsApp
+                  </a>
+                  .
+                </p>
+                <button
                   onClick={() => window.location.reload()}
-                  className="rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-primary shadow-sm hover:bg-surface transition-all ring-1 ring-inset ring-primary/20 relative z-10"
+                  className="mt-6 rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-primary shadow-sm hover:bg-surface transition-all ring-1 ring-inset ring-primary/20 relative z-10"
                 >
                   Enviar nova mensagem
                 </button>

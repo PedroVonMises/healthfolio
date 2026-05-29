@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import FadeIn from "@/components/ui/FadeIn";
 import { StaggerContainer } from "@/components/ui/FadeIn";
 import { CalendarClock, ShieldCheck, Activity, Lock } from "lucide-react";
@@ -57,7 +58,7 @@ export default function Services() {
         <FadeIn>
           <div className="mx-auto max-w-2xl lg:text-center">
             <p className="font-display text-3xl font-bold tracking-tight text-text sm:text-4xl lg:text-5xl text-balance">
-              A tecnologia deve trabalhar pela sua clínica, não o contrário.
+              De 40% menos tempo administrativo a 100% de visibilidade financeira — em um sistema.
             </p>
             <p className="mt-6 text-base leading-7 text-text-muted text-balance">
               Sistemas genéricos criam mais problemas do que resolvem. Projetos
@@ -91,6 +92,12 @@ export default function Services() {
                 </dt>
                 <dd className="relative z-10 mt-4 flex flex-auto flex-col text-base leading-7 text-text-muted">
                   <p className="flex-auto max-w-prose">{featured.description}</p>
+                  <Link
+                    href="#contato"
+                    className="mt-6 self-start text-sm font-semibold text-primary hover:underline transition-colors duration-200"
+                  >
+                    Como isso se aplica à minha clínica? →
+                  </Link>
                 </dd>
 
                 {/* Decorative accent stripe */}
