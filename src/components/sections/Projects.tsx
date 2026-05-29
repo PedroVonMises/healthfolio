@@ -10,43 +10,11 @@ import dynamic from "next/dynamic";
 const BeforeAfterSlider = dynamic(() => import("@/components/ui/BeforeAfterSlider"), { ssr: false });
 import { ArrowRight, Image as ImageIcon, FolderCheck } from "lucide-react";
 import Image from "next/image";
+import { projects } from "@/lib/projects";
 
 /* ------------------------------------------------------------------ */
 /* Data                                                                */
 /* ------------------------------------------------------------------ */
-
-const projects = [
-  {
-    id: "portal-paciente",
-    title: "Portal do Paciente - Clínica de Especialidades",
-    category: "Redução de Gargalos",
-    desafio: "Clínica perdia 15% dos agendamentos devido à lentidão no atendimento via WhatsApp.",
-    solucao: "Ambiente seguro integrado diretamente ao ERP para agendamento automático de exames.",
-    resultado: "Redução de 35% nas chamadas telefônicas e aumento de 22% em consultas efetivadas no 1º mês.",
-    tags: ["Next.js", "Tailwind CSS", "Integração ERP"],
-    image: "/portaldopaciente.png",
-  },
-  {
-    id: "dashboard-gestao",
-    title: "Painel Gerencial para Sócios-Médicos",
-    category: "Visibilidade Financeira",
-    desafio: "Gestão às cegas com fechamento financeiro mensal demorado e relatórios manuais de no-show.",
-    solucao: "Dashboard em tempo real consolidando faturamento por convênio e absenteísmo médico.",
-    resultado: "Substituição completa de 4 planilhas complexas, agilizando fechamentos e tomadas de decisão.",
-    tags: ["React", "Data Viz", "API REST"],
-    image: "/painel.png",
-  },
-  {
-    id: "agendamento-whatsapp",
-    title: "Autoatendimento Sincronizado",
-    category: "Experiência Premium",
-    desafio: "Sala de espera lotada de forma recorrente e insatisfação no processo de recepção física.",
-    solucao: "Totem eletrônico sincronizado com agendamento web e alertas instantâneos via WhatsApp.",
-    resultado: "Redução de 50% no tempo médio de espera do paciente na recepção da clínica.",
-    tags: ["TypeScript", "Integração WhatsApp"],
-    image: "/auto.png",
-  },
-];
 
 const categories = [
   "Todos",
@@ -153,24 +121,24 @@ export default function Projects() {
                       </div>
                       <div className="aspect-[16/9] w-full bg-surface-2 overflow-hidden sm:aspect-[2/1] lg:aspect-[3/2] flex items-center justify-center relative">
                         {project.image ? (
-                          <Image 
-                            src={project.image} 
-                            alt={project.title} 
-                            fill 
-                            className="object-cover transition-transform duration-[750ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105" 
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
+                          <Image
+                            src={project.image}
+                            alt={project.title}
+                            fill
+                            className="object-cover transition-transform duration-[750ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           />
                         ) : (
                           <ImageIcon className="h-8 w-8 text-text-faint transition-colors duration-500 group-hover:text-primary/50" />
                         )}
                       </div>
                     </div>
-                    
+
                     <div className="max-w-xl flex flex-col flex-1 w-full">
                       <div className="flex items-center gap-x-4 text-[10px] font-bold uppercase tracking-wider text-primary">
                         {project.category}
                       </div>
-                      
+
                       <div className="group/title relative flex-1 mt-3">
                         <h3 className="font-display text-2xl lg:text-3xl font-bold tracking-tight text-text group-hover/title:text-primary transition-colors duration-300 flex items-center gap-2 leading-7 lg:leading-8">
                           {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
@@ -180,7 +148,7 @@ export default function Projects() {
                           </Link>
                           <ArrowRight className="h-5 w-5 opacity-0 -translate-x-2 transition-all duration-300 group-hover/title:opacity-100 group-hover/title:translate-x-1 group-hover/title:text-primary shrink-0" />
                         </h3>
-                        
+
                         {/* Dynamic Structured B2B Data */}
                         <div className="mt-5 space-y-4 text-[14.5px] leading-relaxed">
                           <div>
@@ -195,9 +163,14 @@ export default function Projects() {
                             <span className="font-bold text-[11px] uppercase tracking-wider text-primary block mb-0.5">Resultado</span>
                             <p className="text-text font-semibold">{project.resultado}</p>
                           </div>
+                          {project.relevancia && (
+                            <p className="mt-1 text-[13px] leading-snug text-text-muted italic border-l-2 border-primary/40 pl-3">
+                              {project.relevancia}
+                            </p>
+                          )}
                         </div>
                       </div>
-                      
+
                       <div className="mt-6 flex flex-wrap gap-2">
                         {project.tags.map((tag) => (
                           <span
