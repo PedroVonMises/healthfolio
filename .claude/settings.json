@@ -1,0 +1,152 @@
+{
+  "model": "claude-sonnet-4-20250514",
+  "customInstructions": "Follow the project's CLAUDE.md guidelines. Use concurrent execution for all operations.",
+  "env": {
+    "AGENTIC_FLOW_INTELLIGENCE": "true",
+    "AGENTIC_FLOW_LEARNING_RATE": "0.1",
+    "AGENTIC_FLOW_EPSILON": "0.1",
+    "AGENTIC_FLOW_MEMORY_BACKEND": "agentdb"
+  },
+  "permissions": {
+    "allowedTools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Task",
+      "WebFetch",
+      "WebSearch",
+      "TodoWrite",
+      "LSP",
+      "NotebookEdit"
+    ],
+    "deniedTools": [],
+    "allow": [
+      "Bash(npx:*)",
+      "Bash(agentic-flow:*)",
+      "Bash(npm run:*)",
+      "mcp__agentic-flow",
+      "mcp__claude-flow",
+      "mcp__ruv-swarm"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx agentic-flow@alpha hooks pre-edit \"$TOOL_INPUT_file_path\""
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx agentic-flow@alpha hooks pre-command \"$TOOL_INPUT_command\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx agentic-flow@alpha hooks post-edit \"$TOOL_INPUT_file_path\" --success"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx agentic-flow@alpha hooks post-command \"$TOOL_INPUT_command\""
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx agentic-flow@alpha hooks post-edit \"$TOOL_INPUT_file_path\" --fail --error \"$ERROR_MESSAGE\""
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx agentic-flow@alpha hooks intelligence stats --json 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx agentic-flow@alpha hooks metrics --session --json 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 3000,
+            "command": "npx agentic-flow@alpha hooks route \"$USER_PROMPT\" --json 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx agentic-flow@alpha hooks metrics --session 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  },
+  "agents": {
+    "source": ".claude/agents",
+    "customAgents": []
+  },
+  "skills": {
+    "source": ".claude/commands",
+    "enabled": true
+  },
+  "statusLine": {
+    "type": "command",
+    "command": ".claude/statusline.sh"
+  },
+  "mcpServers": {
+    "claude-flow": {
+      "command": "npx",
+      "args": [
+        "agentic-flow@alpha",
+        "mcp",
+        "start"
+      ]
+    }
+  }
+}

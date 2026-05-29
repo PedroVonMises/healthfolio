@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import Hero from "@/components/sections/Hero";
+import TrustMetrics from "@/components/ui/TrustMetrics";
 import TechStack from "@/components/sections/TechStack";
 import Services from "@/components/sections/Services";
 import ROICalculator from "@/components/sections/ROICalculator";
@@ -12,6 +13,12 @@ export default function Home() {
   return (
     <>
       <Hero />
+      {/* Trust metrics below hero — social proof section */}
+      <section className="bg-bg py-12 sm:py-16 border-b border-divider">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <TrustMetrics />
+        </div>
+      </section>
       <TechStack />
       <Services />
       <ROICalculator />
