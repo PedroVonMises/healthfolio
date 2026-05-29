@@ -59,7 +59,7 @@ describe('Contact section', () => {
     const { default: Contact } = await import('@/components/sections/Contact');
     render(<Contact />);
 
-    expect(screen.getByText(/Mensagem enviada!/i)).toBeInTheDocument();
+    expect(screen.getByText(/Mensagem recebida!/i)).toBeInTheDocument();
     expect(screen.getByText(/Enviar nova mensagem/i)).toBeInTheDocument();
   });
 

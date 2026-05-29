@@ -6,6 +6,7 @@ import FadeIn from '@/components/ui/FadeIn';
 import { motion } from 'framer-motion';
 import { Send, CheckCircle2, AlertCircle, MessageCircle } from 'lucide-react';
 import { submitContactForm } from '@/app/actions/contact';
+import { WHATSAPP_NUMBER } from '@/lib/constants';
 import CyberneticGridShader from '@/components/ui/cybernetic-grid-shader';
 
 export default function Contact() {
@@ -64,7 +65,7 @@ export default function Contact() {
                 <p className="text-text-muted mb-2 relative z-10">
                   Respondo em até 24h por e-mail. Se for urgente, fale diretamente no{" "}
                   <a
-                    href="https://wa.me/5527992018590"
+                    href={`https://wa.me/${WHATSAPP_NUMBER}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-semibold text-primary underline hover:no-underline transition-all"

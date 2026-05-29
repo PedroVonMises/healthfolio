@@ -3,6 +3,7 @@
 import React from "react";
 import { SiWhatsapp } from "@icons-pack/react-simple-icons";
 import { motion } from "framer-motion";
+import { WHATSAPP_NUMBER } from "@/lib/constants";
 
 export default function WhatsappButton() {
   return (
@@ -17,7 +18,7 @@ export default function WhatsappButton() {
         className="pointer-events-auto"
       >
         <a
-          href="https://wa.me/5527992018590"
+          href={`https://wa.me/${WHATSAPP_NUMBER}`}
           target="_blank"
           rel="noopener noreferrer"
           className="group flex items-center gap-3 select-none focus:outline-none"
