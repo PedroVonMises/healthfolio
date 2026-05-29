@@ -92,7 +92,7 @@ export default function TechStack() {
                 <div className="p-2 rounded-lg bg-primary/10 text-primary">
                   <Icon strokeWidth={1.5} className="w-5 h-5" />
                 </div>
-                <span className="text-sm font-semibold font-display tracking-widest uppercase text-text-muted">
+                <span className="text-xs font-semibold font-mono tracking-wider uppercase text-text-muted">
                   {tech.name}
                 </span>
               </TiltCard>

@@ -102,7 +102,7 @@ export default function Testimonials() {
             <h2 className="text-base font-semibold leading-7 text-primary flex items-center justify-center gap-2">
               <Award className="w-4 h-4" /> Confiança Regional
             </h2>
-            <p className="mt-2 font-display text-3xl font-bold tracking-tight text-text sm:text-4xl text-balance">
+            <p className="mt-2 font-display text-3xl font-bold tracking-tight text-text sm:text-4xl lg:text-5xl text-balance">
               O que dizem os gestores capixabas
             </p>
           </div>
@@ -113,7 +113,7 @@ export default function Testimonials() {
             <Quote className="w-32 h-32 rotate-180" />
           </div>
 
-          <div className="relative h-[350px] sm:h-[250px] w-full perspective-1000">
+          <div className="relative min-h-[280px] sm:min-h-[220px] w-full flex items-center justify-center perspective-1000">
             {isLoading && !data ? (
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-12 animate-pulse">
                 <div className="h-6 bg-surface-offset rounded w-3/4 mb-4"></div>
@@ -136,18 +136,17 @@ export default function Testimonials() {
                   animate="center"
                   exit="exit"
                   transition={{
-                    x: { type: "spring", stiffness: 300, damping: 30 },
-                    opacity: { duration: 0.2 },
-                    scale: { duration: 0.2 }
+                    duration: 0.4,
+                    ease: [0.16, 1, 0.3, 1]
                   }}
-                  className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-12"
+                  className="w-full flex flex-col items-center justify-center text-center px-4 sm:px-12 pb-4"
                 >
                   <p className="text-lg sm:text-xl leading-relaxed text-text text-balance italic">
                     &quot;{testimonials[currentIndex].quote}&quot;
                   </p>
                   
-                  <div className="mt-8 flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-surface-offset flex items-center justify-center shadow-inner ring-1 ring-border">
+                  <div className="mt-6 sm:mt-8 flex items-center gap-4 shrink-0">
+                    <div className="w-12 h-12 rounded-full bg-surface-offset flex items-center justify-center shadow-inner ring-1 ring-border shrink-0">
                       <span className="font-sans font-semibold text-text-muted text-base">
                         {testimonials[currentIndex].avatar}
                       </span>
@@ -162,7 +161,7 @@ export default function Testimonials() {
             )}
           </div>
 
-          <div className="flex items-center justify-center gap-6 mt-8 relative z-10">
+          <div className="flex items-center justify-center gap-6 mt-10 sm:mt-12 relative z-10">
             <button 
               onClick={prev}
               className="p-2 rounded-full bg-surface-2 text-text hover:bg-surface-offset hover:text-primary transition-colors ring-1 ring-border"

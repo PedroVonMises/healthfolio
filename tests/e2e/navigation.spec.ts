@@ -4,8 +4,7 @@ test('navegação hero → seção projetos', async ({ page }) => {
   await page.goto('/')
   await expect(page).toHaveTitle(/Pedro Augusto/)
   
-  // Click on "Ver Casos de Sucesso" inside the hero
-  await page.click('a[href="#projetos"]')
+  await page.click('#hero a[href="#projetos"]')
   
   // O scroll deve ter levado à seção de projetos
   await expect(page.locator('#projetos')).toBeInViewport()

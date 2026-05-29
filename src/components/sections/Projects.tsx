@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import FadeIn from "@/components/ui/FadeIn";
@@ -20,17 +20,19 @@ const projects = [
     id: "portal-paciente",
     title: "Portal do Paciente - Clínica de Especialidades",
     category: "Redução de Gargalos",
-    description:
-      "Situação: Clínica perdia 15% dos agendamentos por demora no WhatsApp. Solução: Ambiente seguro integrado ao ERP. Resultado: Redução de 35% nas chamadas telefônicas e aumento de 22% em consultas efetivadas no primeiro mês.",
-    tags: ["Next.js", "Tailwind", "Integração ERP"],
+    desafio: "Clínica perdia 15% dos agendamentos devido à lentidão no atendimento via WhatsApp.",
+    solucao: "Ambiente seguro integrado diretamente ao ERP para agendamento automático de exames.",
+    resultado: "Redução de 35% nas chamadas telefônicas e aumento de 22% em consultas efetivadas no 1º mês.",
+    tags: ["Next.js", "Tailwind CSS", "Integração ERP"],
     image: "/portaldopaciente.png",
   },
   {
     id: "dashboard-gestao",
     title: "Painel Gerencial para Sócios-Médicos",
     category: "Visibilidade Financeira",
-    description:
-      "Situação: Gestão às cegas com fechamento mensal demorado. Solução: Dashboard consolidando faturamento por convênio e métricas de no-show. Resultado: Substituiu 4 planilhas complexas e acelerou a tomada de decisão financeira.",
+    desafio: "Gestão às cegas com fechamento financeiro mensal demorado e relatórios manuais de no-show.",
+    solucao: "Dashboard em tempo real consolidando faturamento por convênio e absenteísmo médico.",
+    resultado: "Substituição completa de 4 planilhas complexas, agilizando fechamentos e tomadas de decisão.",
     tags: ["React", "Data Viz", "API REST"],
     image: "/painel.png",
   },
@@ -38,8 +40,9 @@ const projects = [
     id: "agendamento-whatsapp",
     title: "Autoatendimento Sincronizado",
     category: "Experiência Premium",
-    description:
-      "Situação: Sala de espera lotada e pacientes insatisfeitos. Solução: Totem sincronizado com agendamento web e notificações ativas de WhatsApp. Resultado: Tempo de espera na recepção caiu pela metade.",
+    desafio: "Sala de espera lotada de forma recorrente e insatisfação no processo de recepção física.",
+    solucao: "Totem eletrônico sincronizado com agendamento web e alertas instantâneos via WhatsApp.",
+    resultado: "Redução de 50% no tempo médio de espera do paciente na recepção da clínica.",
     tags: ["TypeScript", "Integração WhatsApp"],
     image: "/auto.png",
   },
@@ -75,7 +78,7 @@ export default function Projects() {
               <h2 className="text-base font-semibold leading-7 text-primary flex items-center gap-2">
                 <FolderCheck className="w-4 h-4" /> Estudos de Caso
               </h2>
-              <p className="mt-2 font-display text-3xl font-bold tracking-tight text-text sm:text-4xl">
+              <p className="mt-2 font-display text-3xl font-bold tracking-tight text-text sm:text-4xl lg:text-5xl">
                 Resultados reais para clínicas capixabas
               </p>
               <p className="mt-6 text-base leading-7 text-text-muted">
@@ -106,7 +109,7 @@ export default function Projects() {
                 key={cat}
                 onClick={() => setActiveFilter(cat)}
                 aria-pressed={activeFilter === cat}
-                className={`relative rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 ${
+                className={`relative rounded-full px-4 py-2 text-sm font-medium transition-colors duration-200 cursor-pointer ${
                   activeFilter === cat
                     ? "text-text-inverse"
                     : "text-text-muted hover:text-text bg-surface-2 hover:bg-surface-offset ring-1 ring-border"
@@ -127,7 +130,7 @@ export default function Projects() {
         </FadeIn>
 
         {/* Animated Grid */}
-        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3 md:grid-cols-2">
           <AnimatePresence mode="popLayout">
             {filtered.map((project) => (
               <motion.div
@@ -137,48 +140,69 @@ export default function Projects() {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9, y: -20 }}
                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                className="h-full"
               >
-                <Spotlight className="h-full rounded-2xl ring-1 ring-inset ring-border/50 bg-bg hover:ring-primary/30 transition-all duration-300 hover:shadow-lg group">
-                  <article className="flex max-w-xl flex-col items-start justify-between p-6 sm:p-8 h-full relative z-10">
-                    <div className="relative w-full overflow-hidden rounded-xl mb-6 ring-1 ring-border bg-surface-2 group-hover:ring-primary/30 transition-colors duration-500">
+                <Spotlight className="h-full rounded-2xl border border-divider/60 bg-surface/30 backdrop-blur-sm hover:border-primary/30 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5 group flex flex-col">
+                  <article className="flex max-w-xl flex-col items-start justify-between p-6 sm:p-8 h-full relative z-10 flex-1 w-full">
+                    <div className="relative w-full overflow-hidden rounded-xl mb-6 border border-divider bg-surface-2 group-hover:border-primary/30 transition-colors duration-500 shadow-sm shrink-0">
                       {/* Faux Window Frame (MacBook style) */}
-                      <div className="w-full h-8 bg-surface border-b border-border flex items-center px-4 gap-1.5 z-20 relative">
-                        <div className="w-2.5 h-2.5 rounded-full bg-red-400/80" />
-                        <div className="w-2.5 h-2.5 rounded-full bg-amber-400/80" />
-                        <div className="w-2.5 h-2.5 rounded-full bg-green-400/80" />
+                      <div className="w-full h-8 bg-surface-2/80 backdrop-blur-sm border-b border-border flex items-center px-4 gap-1.5 z-20 relative select-none">
+                        <div className="w-2.5 h-2.5 rounded-full bg-red-400/80 shadow-xs" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-amber-400/80 shadow-xs" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-green-400/80 shadow-xs" />
                       </div>
-                      <div className="aspect-[16/9] w-full bg-surface-2 overflow-hidden sm:aspect-[2/1] lg:aspect-[3/2] flex items-center justify-center transition-transform duration-700 group-hover:scale-105 relative">
+                      <div className="aspect-[16/9] w-full bg-surface-2 overflow-hidden sm:aspect-[2/1] lg:aspect-[3/2] flex items-center justify-center relative">
                         {project.image ? (
-                          <Image src={project.image} alt={project.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+                          <Image 
+                            src={project.image} 
+                            alt={project.title} 
+                            fill 
+                            className="object-cover transition-transform duration-[750ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105" 
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
+                          />
                         ) : (
                           <ImageIcon className="h-8 w-8 text-text-faint transition-colors duration-500 group-hover:text-primary/50" />
                         )}
                       </div>
                     </div>
+                    
                     <div className="max-w-xl flex flex-col flex-1 w-full">
-                      <div className="flex items-center gap-x-4 text-xs">
-                        <span className="text-primary font-medium">
-                          {project.category}
-                        </span>
+                      <div className="flex items-center gap-x-4 text-[10px] font-bold uppercase tracking-wider text-primary">
+                        {project.category}
                       </div>
-                      <div className="group/title relative flex-1">
-                        <h3 className="mt-3 font-display text-xl font-semibold leading-6 text-text group-hover/title:text-primary transition-colors flex items-center gap-2">
+                      
+                      <div className="group/title relative flex-1 mt-3">
+                        <h3 className="font-display text-2xl lg:text-3xl font-bold tracking-tight text-text group-hover/title:text-primary transition-colors duration-300 flex items-center gap-2 leading-7 lg:leading-8">
                           {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                           <Link href={`/projetos/${project.id}` as unknown as any}>
                             <span className="absolute inset-0" />
                             {project.title}
                           </Link>
-                          <ArrowRight className="h-4 w-4 opacity-0 -translate-x-2 transition-all duration-300 group-hover/title:opacity-100 group-hover/title:translate-x-0" />
+                          <ArrowRight className="h-5 w-5 opacity-0 -translate-x-2 transition-all duration-300 group-hover/title:opacity-100 group-hover/title:translate-x-1 group-hover/title:text-primary shrink-0" />
                         </h3>
-                        <p className="mt-5 line-clamp-3 text-sm leading-6 text-text-muted">
-                          {project.description}
-                        </p>
+                        
+                        {/* Dynamic Structured B2B Data */}
+                        <div className="mt-5 space-y-4 text-[14.5px] leading-relaxed">
+                          <div>
+                            <span className="font-bold text-[11px] uppercase tracking-wider text-text/80 block mb-0.5">Desafio</span>
+                            <p className="text-text-muted">{project.desafio}</p>
+                          </div>
+                          <div>
+                            <span className="font-bold text-[11px] uppercase tracking-wider text-text/80 block mb-0.5">Solução</span>
+                            <p className="text-text-muted">{project.solucao}</p>
+                          </div>
+                          <div className="p-4 rounded-xl bg-surface-2/60 border border-divider shadow-xs group-hover:border-primary/20 transition-colors duration-500">
+                            <span className="font-bold text-[11px] uppercase tracking-wider text-primary block mb-0.5">Resultado</span>
+                            <p className="text-text font-semibold">{project.resultado}</p>
+                          </div>
+                        </div>
                       </div>
+                      
                       <div className="mt-6 flex flex-wrap gap-2">
                         {project.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="inline-flex items-center rounded-md bg-surface px-2 py-1 text-xs font-medium text-text-muted ring-1 ring-inset ring-border transition-colors group-hover:bg-primary-highlight/50"
+                            className="inline-flex items-center rounded-full bg-surface-2 px-3 py-0.5 text-xs font-semibold text-text-muted border border-divider transition-all duration-300 group-hover:bg-primary-highlight/30 group-hover:text-primary group-hover:border-primary/20"
                           >
                             {tag}
                           </span>

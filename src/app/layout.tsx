@@ -8,6 +8,7 @@ import MotionProvider from "@/components/ui/MotionProvider";
 import { PageTransition } from "@/components/ui/PageTransition";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Instrument_Serif, Work_Sans } from "next/font/google";
+import WhatsappButton from "@/components/ui/WhatsappButton";
 import "./globals.css";
 
 const instrumentSerif = Instrument_Serif({
@@ -66,6 +67,23 @@ export default function RootLayout({
     <html lang="pt-BR" suppressHydrationWarning className="scroll-smooth">
       <head>
         <PersonJsonLd />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const savedTheme = localStorage.getItem('theme');
+                  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                  } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
       </head>
       <body className={`min-h-screen flex flex-col font-sans relative ${instrumentSerif.variable} ${workSans.variable}`}>
         <MotionProvider>
@@ -83,6 +101,7 @@ export default function RootLayout({
             </NuqsAdapter>
           </main>
           <Footer />
+          <WhatsappButton />
         </MotionProvider>
         {process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN && (
           <Script

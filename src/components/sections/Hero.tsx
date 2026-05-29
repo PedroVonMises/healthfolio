@@ -57,7 +57,7 @@ export default function Hero() {
           </FadeIn>
 
           <FadeIn>
-            <h1 className="font-display text-4xl font-bold tracking-tight text-text sm:text-6xl text-balance">
+            <h1 className="font-display text-4xl font-bold tracking-tight text-text sm:text-6xl lg:text-7xl text-balance">
               Sua agenda cheia. Seu administrativo no piloto automático.
             </h1>
           </FadeIn>

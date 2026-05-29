@@ -20,15 +20,18 @@ export default function TrustMetrics() {
     >
       {metrics.map((metric) => (
         <FadeIn key={metric.label}>
-          <div className="flex flex-col items-center group cursor-default">
-            <span className="text-3xl sm:text-4xl font-display font-bold text-primary group-hover:scale-110 transition-transform duration-300">
+          <div className="flex flex-col items-center group cursor-default relative px-6 py-4 rounded-2xl overflow-visible transition-all duration-300">
+            {/* Glow effect background */}
+            <div className="absolute inset-0 bg-radial from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none -z-10 blur-xl scale-125" />
+            
+            <span className="text-6xl sm:text-8xl font-display font-bold text-primary group-hover:scale-105 transition-transform duration-[400ms] ease-[cubic-bezier(0.16,1,0.3,1)] select-none">
               <AnimatedCounter
                 value={metric.value}
                 prefix={metric.prefix}
                 suffix={metric.suffix}
               />
             </span>
-            <span className="mt-1 text-xs sm:text-sm font-medium text-text-muted uppercase tracking-wider">
+            <span className="mt-2 text-xs sm:text-sm font-semibold text-text-muted uppercase tracking-wider group-hover:text-text transition-colors duration-300 text-center">
               {metric.label}
             </span>
           </div>

@@ -139,4 +139,18 @@ describe('Acessibilidade WCAG AA — jest-axe', () => {
     const results = await axe(container)
     expect(results).toHaveNoViolations()
   })
+
+  it('Header não tem violações WCAG AA', async () => {
+    const { default: Header } = await import('@/components/layout/Header')
+    const { container } = render(<Header />)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
+  })
+
+  it('Footer não tem violações WCAG AA', async () => {
+    const { default: Footer } = await import('@/components/layout/Footer')
+    const { container } = render(<Footer />)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
+  })
 })

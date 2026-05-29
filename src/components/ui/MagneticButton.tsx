@@ -6,11 +6,13 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 export default function MagneticButton({ 
   children, 
   href,
-  className = ""
+  className = "",
+  flareClassName = "bg-primary-hover"
 }: { 
   children: React.ReactNode; 
   href: string;
   className?: string;
+  flareClassName?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   
@@ -61,7 +63,9 @@ export default function MagneticButton({
         </span>
         
         {/* Magnetic background flare */}
-        <div className="absolute inset-0 z-0 bg-primary-hover opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        {flareClassName !== "none" && (
+          <div className={`absolute inset-0 z-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 ${flareClassName}`} />
+        )}
       </motion.a>
     </div>
   );

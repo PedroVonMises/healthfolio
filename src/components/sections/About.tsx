@@ -16,7 +16,7 @@ export default function About() {
                   <Handshake className="w-4 h-4" /> Sócio-técnico, não apenas
                   fornecedor
                 </h2>
-                <p className="mt-2 font-display text-3xl font-bold tracking-tight text-text sm:text-4xl text-balance">
+                <p className="mt-2 font-display text-3xl font-bold tracking-tight text-text sm:text-4xl lg:text-5xl text-balance">
                   Desenvolvedor focado em resultados reais para a saúde
                 </p>
               </FadeIn>

@@ -2,6 +2,7 @@ import React from "react";
 import FadeIn from "@/components/ui/FadeIn";
 import { StaggerContainer } from "@/components/ui/FadeIn";
 import { CalendarClock, ShieldCheck, Activity, Lock, HeartPulse } from "lucide-react";
+import CyberneticGridShader from "@/components/ui/cybernetic-grid-shader";
 
 const services = [
   {
@@ -43,16 +44,21 @@ export default function Services() {
   return (
     <section
       id="especializacao"
-      className="bg-surface py-24 sm:py-32 border-y border-divider"
+      className="bg-surface py-24 sm:py-32 border-y border-divider relative overflow-hidden"
     >
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      {/* Cybernetic grid shader background */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-20 dark:opacity-30">
+        <CyberneticGridShader />
+      </div>
+
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
         <FadeIn>
           <div className="mx-auto max-w-2xl lg:text-center">
             <h2 className="text-base font-semibold leading-7 text-primary flex items-center justify-center gap-2">
               <HeartPulse className="w-4 h-4" /> A solução para o caos
               administrativo
             </h2>
-            <p className="mt-2 font-display text-3xl font-bold tracking-tight text-text sm:text-4xl text-balance">
+            <p className="mt-2 font-display text-3xl font-bold tracking-tight text-text sm:text-4xl lg:text-5xl text-balance">
               A tecnologia deve trabalhar pela sua clínica, não o contrário.
             </p>
             <p className="mt-6 text-base leading-7 text-text-muted text-balance">
