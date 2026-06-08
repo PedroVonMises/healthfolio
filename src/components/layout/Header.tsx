@@ -76,7 +76,7 @@ export default function Header() {
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500"></span>
               </span>
               <span className="text-[10px] font-bold uppercase tracking-wider text-text-muted transition-all duration-300">
-                {isScrolled ? 'Disponível' : 'Disponível para projetos'}
+                {isScrolled ? '24h' : 'Disponível'}
               </span>
             </div>
           </div>
