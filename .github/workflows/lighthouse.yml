@@ -15,6 +15,11 @@ jobs:
         with:
           urls: |
             http://localhost:3000
+          # Serve the production build before auditing - without this nothing
+          # listens on :3000 and Chrome aborts with CHROME_INTERSTITIAL_ERROR.
+          startServerCommand: npm run start
+          startServerReadyPattern: 'Ready in|started server|Local:'
+          startServerReadyTimeout: 60000
           budgetPath: ./lighthouse-budget.json
           uploadArtifacts: true
         env:
