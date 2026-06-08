@@ -1,4 +1,4 @@
-import { parseClinicConfig } from '@/templates/clinic/schema';
+import { parseClinicConfig, type ClinicConfigInput } from '@/templates/clinic/schema';
 import type { ClinicConfig } from '@/templates/clinic/types';
 
 /**
@@ -9,7 +9,7 @@ import type { ClinicConfig } from '@/templates/clinic/types';
  * To deploy for a real client: copy this file, swap the values + theme,
  * and point the route at the new config. The template code is identical.
  */
-const config: ClinicConfig = {
+const config: ClinicConfigInput = {
   slug: 'demo',
   brand: {
     name: 'Clínica Vita Saúde',

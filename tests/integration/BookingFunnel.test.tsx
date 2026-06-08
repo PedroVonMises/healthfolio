@@ -97,4 +97,37 @@ describe('BookingFunnel', () => {
     const link = await screen.findByRole('link', { name: /Abrir conversa no WhatsApp/ });
     expect(link).toHaveAttribute('href', 'https://wa.me/5527999990000?text=fallback');
   });
+
+  it('REGRESSÃO: contexto reflete a especialidade/médico ESCOLHIDOS (não os primeiros)', async () => {
+    const provider = makeProvider();
+    render(<BookingFunnel config={demoClinic} provider={provider} onOpenWhatsapp={() => {}} />);
+
+    // Escolhe a SEGUNDA especialidade (Dermatologia) e o SEGUNDO médico (Dr. Bruno Costa).
+    fireEvent.click(screen.getByLabelText(/Dermatologia/));
+    fireEvent.click(screen.getByRole('button', { name: /Continuar/ }));
+    fireEvent.click(await screen.findByLabelText(/Dr\. Bruno Costa/));
+    fireEvent.click(screen.getByRole('button', { name: /Continuar/ }));
+    fireEvent.change(await screen.findByLabelText(/data e o horário/i), {
+      target: { value: '2026-07-01T14:00' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: /Continuar/ }));
+    fireEvent.change(screen.getByLabelText(/Nome completo/), { target: { value: 'João Souza' } });
+    fireEvent.change(screen.getByLabelText(/Telefone/), { target: { value: '27988887777' } });
+    fireEvent.click(screen.getByRole('checkbox'));
+    fireEvent.click(screen.getByRole('button', { name: /Continuar/ }));
+    fireEvent.click(await screen.findByTestId('booking-submit'));
+
+    await waitFor(() => expect(provider.submitBooking).toHaveBeenCalledTimes(1));
+    const [payload, context] = (provider.submitBooking as ReturnType<typeof vi.fn>).mock.calls[0];
+
+    // O payload carrega os IDS corretos…
+    expect(payload.specialtyId).toBe('dermatologia');
+    expect(payload.doctorId).toBe('dr-bruno-costa');
+    // …e o contexto humano-legível nomeia EXATAMENTE o que foi escolhido (regressão).
+    expect(context).toBeDefined();
+    expect(context.specialtyName).toBe('Dermatologia');
+    expect(context.doctorName).toBe('Dr. Bruno Costa');
+    expect(context.specialtyName).not.toBe('Cardiologia'); // não o primeiro
+    expect(context.doctorName).not.toBe('Dra. Ana Ribeiro'); // não o primeiro
+  });
 });

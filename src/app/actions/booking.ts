@@ -6,7 +6,7 @@ import { Redis } from '@upstash/redis';
 import { BookingPayloadSchema } from '@/templates/clinic/schema';
 import { buildBookingSummary, buildWhatsappUrl } from '@/templates/clinic/booking/waUrl';
 import { insertBookingLead } from '@/templates/clinic/booking/supabaseLeads';
-import type { BookingResult } from '@/templates/clinic/types';
+import type { BookingContext, BookingResult } from '@/templates/clinic/types';
 
 const redisUrl = process.env.UPSTASH_REDIS_REST_URL;
 const redisToken = process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -15,21 +15,9 @@ let ratelimit: Ratelimit | null = null;
 if (redisUrl && redisToken) {
   ratelimit = new Ratelimit({
     redis: new Redis({ url: redisUrl, token: redisToken }),
-    limiter: Ratelimit.slidingWindow(5, '1 h'),
+    // Booking persists PII — keep the same tight window as the contact form.
+    limiter: Ratelimit.slidingWindow(3, '1 h'),
   });
-}
-
-/**
- * Context the funnel resolves from the clinic config and passes alongside the
- * payload so the server action can build a human-readable WhatsApp message
- * without re-loading the config.
- */
-export interface BookingContext {
-  clinicName: string;
-  /** Destination WhatsApp number (E.164 digits). */
-  whatsapp: string;
-  specialtyName: string;
-  doctorName: string;
 }
 
 /**

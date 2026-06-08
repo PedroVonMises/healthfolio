@@ -7,6 +7,11 @@ describe('themeToCssVars', () => {
     expect(vars['--color-primary']).toBe('#0E7C7B');
   });
 
+  it('mapeia accent para --color-accent (não pode ser descartado)', () => {
+    const vars = themeToCssVars({ primary: '#0E7C7B', accent: '#F4A259' }) as Record<string, string>;
+    expect(vars['--color-accent']).toBe('#F4A259');
+  });
+
   it('deriva hover/active mais escuros que o primary', () => {
     const vars = themeToCssVars({ primary: '#808080', accent: '#000000' }) as Record<string, string>;
     expect(vars['--color-primary-hover']).not.toBe('#808080');

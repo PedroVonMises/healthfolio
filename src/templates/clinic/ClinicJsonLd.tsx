@@ -28,7 +28,7 @@ export function ClinicJsonLd({ config, url }: ClinicJsonLdProps) {
       '@type': 'PostalAddress',
       streetAddress: config.contact.address,
       addressLocality: config.seo.city,
-      addressRegion: 'ES',
+      addressRegion: config.seo.state,
       addressCountry: 'BR',
     },
     geo: {

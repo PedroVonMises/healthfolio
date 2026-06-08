@@ -23,6 +23,7 @@ export function themeToCssVars(theme: ClinicTheme): CSSProperties {
     '--color-primary': theme.primary,
     '--color-primary-hover': darken(theme.primary, 0.12),
     '--color-primary-active': darken(theme.primary, 0.24),
+    '--color-accent': theme.accent,
   };
   if (theme.font) {
     vars['--font-display'] = `${theme.font}, var(--font-display)`;

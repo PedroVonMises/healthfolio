@@ -60,6 +60,17 @@ describe('parseClinicConfig (fail-fast)', () => {
   it('lança com mensagem clara em config inválido', () => {
     expect(() => parseClinicConfig({ slug: 'x' })).toThrowError(/ClinicConfig inválido/);
   });
+
+  it('seo.state assume "ES" por padrão (back-compat)', () => {
+    const cfg = parseClinicConfig(demoClinic);
+    expect(cfg.seo.state).toBe('ES');
+  });
+
+  it('aceita seo.state de outro estado e normaliza para maiúsculas', () => {
+    const sp = { ...demoClinic, seo: { ...demoClinic.seo, state: 'sp', city: 'São Paulo' } };
+    const cfg = parseClinicConfig(sp);
+    expect(cfg.seo.state).toBe('SP');
+  });
 });
 
 describe('BookingPayloadSchema', () => {

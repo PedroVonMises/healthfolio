@@ -5,11 +5,9 @@ import { whatsappLeadProvider } from './whatsappLeadProvider';
 export type ProviderId = 'whatsappLead' | 'mock';
 
 /**
- * Map a config `booking.provider` id to a provider implementation.
- *
- * NOTE: `whatsappLead` returned here is the static selection reference. The
- * funnel binds the real, context-aware instance via
- * {@link import('./whatsappLeadProvider').createWhatsappLeadProvider}.
+ * Map a config `booking.provider` id to a provider implementation. Both
+ * providers resolve the booking context per submit (passed by the funnel), so
+ * no mount-time binding is needed.
  */
 export function selectProvider(id: ProviderId): BookingProvider {
   switch (id) {
@@ -24,7 +22,7 @@ export function selectProvider(id: ProviderId): BookingProvider {
 }
 
 export { mockProvider } from './mockProvider';
-export { whatsappLeadProvider, createWhatsappLeadProvider } from './whatsappLeadProvider';
+export { whatsappLeadProvider } from './whatsappLeadProvider';
 
 /* ------------------------------------------------------------------ */
 /* Extension point (YAGNI — offer-#1 upsell, NOT implemented here)     */

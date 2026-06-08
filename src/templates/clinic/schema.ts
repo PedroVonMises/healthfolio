@@ -74,6 +74,8 @@ export const ClinicConfigSchema = z
       description: z.string().min(10).max(180),
       city: z.string().min(2).max(80).trim(),
       bairro: z.string().min(2).max(80).trim().optional(),
+      /** UF (two-letter Brazilian state). Defaults to ES for back-compat. */
+      state: z.string().length(2).toUpperCase().default('ES'),
       keywords: z.array(z.string().min(2)).min(1),
     }),
     booking: z.object({
@@ -119,6 +121,14 @@ export const ClinicConfigSchema = z
     (cfg) => cfg.doctors.every((d) => cfg.specialties.some((s) => s.id === d.specialtyId)),
     { message: 'Todo médico deve referenciar uma especialidade existente', path: ['doctors'] },
   );
+
+/**
+ * Input shape for authoring a config (before defaults are applied) — e.g.
+ * `seo.state` is optional here but always present after parsing. Use this to
+ * type raw config literals; `ClinicConfig` (output) is what `parseClinicConfig`
+ * returns.
+ */
+export type ClinicConfigInput = z.input<typeof ClinicConfigSchema>;
 
 /**
  * Parse + fail fast. Throws a clear error if the config is malformed, so a

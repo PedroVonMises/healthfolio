@@ -39,6 +39,19 @@ export interface Slot {
 }
 
 /**
+ * Resolved, human-readable context for a single booking submission. Built by
+ * the funnel from the CURRENT reducer selection (not frozen at mount), so the
+ * WhatsApp handoff message names exactly what the patient chose.
+ */
+export interface BookingContext {
+  clinicName: string;
+  /** Destination WhatsApp number (E.164 digits). */
+  whatsapp: string;
+  specialtyName: string;
+  doctorName: string;
+}
+
+/**
  * Pluggable booking backend. The funnel only knows this interface, so a
  * clinic can be re-pointed at WhatsApp, a mock, or (future) an EMR/calendar
  * adapter purely via config.
@@ -47,5 +60,9 @@ export interface BookingProvider {
   id: string;
   /** Optional — reserved for real-time availability (EMR/calendar upsell). */
   getAvailability?(doctorId: string, dateRange: { from: string; to: string }): Promise<Slot[]>;
-  submitBooking(payload: BookingPayload): Promise<BookingResult>;
+  /**
+   * @param payload validated booking data (ids only, no display labels).
+   * @param context current display labels + destination, resolved per submit.
+   */
+  submitBooking(payload: BookingPayload, context?: BookingContext): Promise<BookingResult>;
 }

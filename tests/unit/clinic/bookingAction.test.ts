@@ -6,7 +6,8 @@ vi.mock('next/headers', () => ({
 }));
 
 import { insertBookingLead } from '@/templates/clinic/booking/supabaseLeads';
-import { submitBookingAction, type BookingContext } from '@/app/actions/booking';
+import { submitBookingAction } from '@/app/actions/booking';
+import type { BookingContext } from '@/templates/clinic/types';
 
 const ctx: BookingContext = {
   clinicName: 'Clínica Vita Saúde',

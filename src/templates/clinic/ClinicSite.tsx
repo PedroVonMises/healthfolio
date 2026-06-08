@@ -7,11 +7,7 @@ import LocalPresenceMap from '@/components/ui/LocalPresenceMap';
 import { Button } from '@/components/ui/Button';
 import { BookingFunnel } from './booking/BookingFunnel';
 import { themeToCssVars } from './theme';
-import {
-  selectProvider,
-  createWhatsappLeadProvider,
-} from './booking/providers';
-import type { BookingContext } from '@/app/actions/booking';
+import { selectProvider } from './booking/providers';
 import type { BookingProvider, ClinicConfig } from './types';
 
 interface ClinicSiteProps {
@@ -22,20 +18,13 @@ export function ClinicSite({ config }: ClinicSiteProps) {
   const { brand, contact, specialties, doctors, content, seo, compliance } = config;
   const cityLine = [seo.bairro, seo.city].filter(Boolean).join(', ');
 
-  // Resolve the booking provider from config. For `whatsappLead` we bind the
-  // server-action context (clinic NAP + the selected specialty/doctor labels).
-  const provider: BookingProvider = useMemo(() => {
-    if (config.booking.provider === 'whatsappLead') {
-      return createWhatsappLeadProvider((): BookingContext => ({
-        clinicName: brand.name,
-        whatsapp: contact.whatsapp,
-        // Best-effort labels; the funnel always sends ids, server re-validates.
-        specialtyName: specialties[0]?.name ?? '',
-        doctorName: doctors[0]?.name ?? '',
-      }));
-    }
-    return selectProvider(config.booking.provider);
-  }, [config.booking.provider, brand.name, contact.whatsapp, specialties, doctors]);
+  // Resolve the booking provider from config. Both providers receive the
+  // booking context (clinic NAP + the patient's CURRENT specialty/doctor) per
+  // submit, built by the funnel — so the handoff always names the real choice.
+  const provider: BookingProvider = useMemo(
+    () => selectProvider(config.booking.provider),
+    [config.booking.provider],
+  );
 
   return (
     <div style={themeToCssVars(brand.theme)} className="bg-bg text-text">
@@ -186,7 +175,7 @@ export function ClinicSite({ config }: ClinicSiteProps) {
             </ul>
           </div>
           <div className="min-h-[260px]">
-            <LocalPresenceMap />
+            <LocalPresenceMap lat={contact.geo.lat} lng={contact.geo.lng} label={cityLine} />
           </div>
         </div>
       </section>

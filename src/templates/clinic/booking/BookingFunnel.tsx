@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useMemo, useReducer, useState } from 'react';
-import { ChevronLeft, ChevronRight, Check, MessageCircle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Check, MessageCircle, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import {
   bookingReducer,
@@ -11,7 +11,7 @@ import {
   type Step,
 } from './reducer';
 import { BookingPayloadSchema } from '../schema';
-import type { BookingProvider, BookingResult, ClinicConfig } from '../types';
+import type { BookingContext, BookingProvider, BookingResult, ClinicConfig } from '../types';
 
 interface BookingFunnelProps {
   config: ClinicConfig;
@@ -66,9 +66,18 @@ export function BookingFunnel({ config, provider, onOpenWhatsapp }: BookingFunne
       return;
     }
 
+    // Resolve the handoff context from the CURRENT selection (not mount-time),
+    // so the WhatsApp message names exactly what the patient chose.
+    const context: BookingContext = {
+      clinicName: config.brand.name,
+      whatsapp: config.contact.whatsapp,
+      specialtyName: selectedSpecialty?.name ?? '',
+      doctorName: selectedDoctor?.name ?? '',
+    };
+
     setSubmitting(true);
     try {
-      const res = await provider.submitBooking(parsed.data);
+      const res = await provider.submitBooking(parsed.data, context);
       setResult(res);
       if (res.ok && res.whatsappUrl) {
         (onOpenWhatsapp ?? ((url: string) => window.open(url, '_blank', 'noopener,noreferrer')))(
@@ -302,9 +311,10 @@ export function BookingFunnel({ config, provider, onOpenWhatsapp }: BookingFunne
       </div>
 
       {error && (
-        <p role="alert" className="mt-3 text-sm text-primary">
-          {error}
-        </p>
+        <div role="alert" className="mt-3 flex gap-2 rounded-md bg-red-50 p-3 ring-1 ring-red-200">
+          <AlertCircle className="h-5 w-5 shrink-0 text-red-600" aria-hidden="true" />
+          <p className="text-sm text-red-800">{error}</p>
+        </div>
       )}
 
       {/* Nav */}
