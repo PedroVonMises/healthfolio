@@ -82,13 +82,15 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 {cs.approach}
               </p>
               {cs.demoHref && (
-                <Link
-                  href={cs.demoHref}
-                  aria-label="Ver demonstração ao vivo deste projeto"
-                  className="mt-6 self-center inline-flex h-12 items-center justify-center gap-2 rounded-full px-5 text-base font-medium transition-colors bg-[var(--color-primary)] text-[var(--color-text-inverse)] hover:bg-[var(--color-primary-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)]"
-                >
-                  <MonitorPlay className="w-4 h-4" /> Ver demonstração
-                </Link>
+                <div className="flex-1 flex items-center justify-center mt-6">
+                  <Link
+                    href={cs.demoHref}
+                    aria-label="Ver demonstração ao vivo deste projeto"
+                    className="inline-flex h-12 items-center justify-center gap-2 rounded-full px-5 text-base font-medium transition-colors bg-[var(--color-primary)] text-[var(--color-text-inverse)] hover:bg-[var(--color-primary-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)]"
+                  >
+                    <MonitorPlay className="w-4 h-4" /> Ver demonstração
+                  </Link>
+                </div>
               )}
             </div>
           </FadeIn>
