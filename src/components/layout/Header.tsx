@@ -67,19 +67,6 @@ export default function Header() {
           <Link href="/" className="-m-1.5 p-1.5 text-2xl lg:text-3xl font-display font-bold text-text group transition-all duration-300 shrink-0">
             Pedro Augusto<span className="text-primary group-hover:animate-pulse">.</span>
           </Link>
-          
-          {/* Equidistant container for B2B Live indicator */}
-          <div className={`hidden lg:flex flex-1 ${isScrolled ? 'justify-center' : 'justify-start pl-6'}`}>
-            <div className="flex items-center gap-2 px-2.5 py-0.5 bg-surface-2/60 rounded-full border border-divider/60 backdrop-blur-sm select-none shrink-0">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500"></span>
-              </span>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-text-muted transition-all duration-300">
-                {isScrolled ? '24h' : 'Disponível'}
-              </span>
-            </div>
-          </div>
         </div>
         
         {/* Desktop Navigation with sliding background pill */}
@@ -102,6 +89,16 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
+          {/* B2B Live indicator — to the right of the last nav item */}
+          <div className="hidden lg:flex items-center gap-2 ml-3 px-2.5 py-0.5 bg-surface-2/60 rounded-full border border-divider/60 backdrop-blur-sm select-none shrink-0">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500"></span>
+            </span>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-text-muted transition-all duration-300">
+              {isScrolled ? '24h' : 'Disponível'}
+            </span>
+          </div>
         </nav>
         
         <div className="flex flex-1 items-center justify-end gap-x-4">
