@@ -19,7 +19,12 @@ const securityHeaders = [
       "font-src 'self' https://api.fontshare.com https://cdn.fontshare.com",
       "img-src 'self' data: blob: https://images.unsplash.com",
       "frame-src 'self' https://www.openstreetmap.org",
-      "connect-src 'self' https://plausible.io",
+      // SECURITY: clinic booking funnel — allow the Supabase REST origin (lead
+      // persistence) and WhatsApp (wa.me deep-link / api.whatsapp.com) without
+      // relaxing any other directive. Supabase URL is env-driven; default added
+      // for *.supabase.co. Top-level wa.me navigation is unaffected, but we list
+      // it for any future client-side calls.
+      "connect-src 'self' https://plausible.io https://*.supabase.co https://wa.me https://api.whatsapp.com",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",

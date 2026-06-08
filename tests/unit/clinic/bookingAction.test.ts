@@ -22,7 +22,7 @@ const validPayload = {
   requestedAt: '2026-07-01T14:00',
   patientName: 'Maria Silva',
   patientPhone: '27999990000',
-  consent: true,
+  consent: true as const,
 };
 
 describe('insertBookingLead', () => {
