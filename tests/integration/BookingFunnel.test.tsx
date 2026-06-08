@@ -130,4 +130,49 @@ describe('BookingFunnel', () => {
     expect(context.specialtyName).not.toBe('Cardiologia'); // não o primeiro
     expect(context.doctorName).not.toBe('Dra. Ana Ribeiro'); // não o primeiro
   });
+
+  it('o botão Voltar retrocede um passo (handler BACK)', async () => {
+    render(<BookingFunnel config={demoClinic} provider={makeProvider()} />);
+    fireEvent.click(screen.getByLabelText(/Cardiologia/));
+    fireEvent.click(screen.getByRole('button', { name: /Continuar/ }));
+    // agora no passo de médico
+    expect(await screen.findByLabelText(/Dra\. Ana Ribeiro/)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /Voltar/ }));
+    expect(screen.getByTestId('step-title')).toHaveTextContent('Especialidade');
+  });
+
+  it('erro no provider → mostra a mensagem de falha (catch → setError)', async () => {
+    const provider = makeProvider({
+      submitBooking: vi.fn(async () => {
+        throw new Error('network down');
+      }),
+    });
+    render(<BookingFunnel config={demoClinic} provider={provider} onOpenWhatsapp={() => {}} />);
+    await advanceToDetails();
+    fireEvent.change(screen.getByLabelText(/Nome completo/), { target: { value: 'Maria Silva' } });
+    fireEvent.change(screen.getByLabelText(/Telefone/), { target: { value: '27999990000' } });
+    fireEvent.click(screen.getByRole('checkbox'));
+    fireEvent.click(screen.getByRole('button', { name: /Continuar/ }));
+    fireEvent.click(await screen.findByTestId('booking-submit'));
+    expect(await screen.findByText(/Não foi possível enviar agora/)).toBeInTheDocument();
+  });
+
+  it('sem onOpenWhatsapp usa o window.open padrão no caminho feliz', async () => {
+    const openSpy = vi.spyOn(window, 'open').mockImplementation(() => null);
+    render(<BookingFunnel config={demoClinic} provider={makeProvider()} />);
+    await advanceToDetails();
+    fireEvent.change(screen.getByLabelText(/Nome completo/), { target: { value: 'Maria Silva' } });
+    fireEvent.change(screen.getByLabelText(/Telefone/), { target: { value: '27999990000' } });
+    fireEvent.click(screen.getByRole('checkbox'));
+    fireEvent.click(screen.getByRole('button', { name: /Continuar/ }));
+    fireEvent.click(await screen.findByTestId('booking-submit'));
+    await waitFor(() =>
+      expect(openSpy).toHaveBeenCalledWith(
+        'https://wa.me/5527999990000?text=oi',
+        '_blank',
+        'noopener,noreferrer',
+      ),
+    );
+    openSpy.mockRestore();
+  });
 });
