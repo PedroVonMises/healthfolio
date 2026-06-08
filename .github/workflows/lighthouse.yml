@@ -13,9 +13,10 @@ jobs:
       - run: npm ci && npm run build
       - uses: treosh/lighthouse-ci-action@v12
         with:
-          urls: |
-            http://localhost:3000
-          budgetPath: ./lighthouse-budget.json
+          # LHCI (via configPath) starts `npm run start`, waits for the server,
+          # audits, then tears it down. The action itself has no startServer
+          # input, so without this nothing listens on :3000 (interstitial error).
+          configPath: ./lighthouserc.json
           uploadArtifacts: true
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

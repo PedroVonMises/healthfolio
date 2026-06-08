@@ -43,8 +43,13 @@ describe('sitemap', () => {
     }
   });
 
+  it('contains the demo clinic route', () => {
+    const found = entries.some((e) => e.url.endsWith('/demo/clinica'));
+    expect(found).toBe(true);
+  });
+
   it('total entry count equals static routes + project count', () => {
-    // 2 static routes (['', '/privacidade']) + one per project
-    expect(entries).toHaveLength(2 + projects.length);
+    // 3 static routes (['', '/privacidade', '/demo/clinica']) + one per project
+    expect(entries).toHaveLength(3 + projects.length);
   });
 });

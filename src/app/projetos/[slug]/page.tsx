@@ -2,7 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, MonitorPlay } from 'lucide-react';
 import FadeIn, { StaggerContainer } from '@/components/ui/FadeIn';
 import { projects, getProjectBySlug } from '@/lib/projects';
 
@@ -76,11 +76,22 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           </FadeIn>
 
           <FadeIn>
-            <div className="bg-surface-2 p-8 rounded-2xl h-full border border-border">
+            <div className="bg-surface-2 p-8 rounded-2xl h-full border border-border flex flex-col">
               <h3 className="text-xl font-semibold text-text mb-4 text-primary">A Abordagem</h3>
               <p className="text-text-muted leading-relaxed">
                 {cs.approach}
               </p>
+              {cs.demoHref && (
+                <div className="flex-1 flex items-center justify-center mt-6">
+                  <Link
+                    href={cs.demoHref}
+                    aria-label="Ver demonstração ao vivo deste projeto"
+                    className="inline-flex h-12 items-center justify-center gap-2 rounded-full px-5 text-base font-medium transition-colors bg-[var(--color-primary)] text-[var(--color-text-inverse)] hover:bg-[var(--color-primary-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)]"
+                  >
+                    <MonitorPlay className="w-4 h-4" /> Ver demonstração
+                  </Link>
+                </div>
+              )}
             </div>
           </FadeIn>
 

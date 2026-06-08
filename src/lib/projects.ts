@@ -1,5 +1,6 @@
 import { ArrowLeft, CheckCircle2, TrendingUp, Clock, Users } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import type { Route } from "next";
 
 /* ------------------------------------------------------------------ */
 /* Types                                                               */
@@ -34,6 +35,8 @@ export interface Project {
     result: string;
     metrics: ProjectMetric[];
     technicalHighlights: string[];
+    /** Optional internal route to a live, clickable demo of this project */
+    demoHref?: Route;
   };
   /** Optional date for sitemap lastModified; ISO date string "YYYY-MM-DD" */
   updatedAt?: string;
@@ -61,6 +64,7 @@ export const projects: Project[] = [
     caseStudy: {
       title: "Portal do Paciente Segregado",
       client: "Rede de Clínicas de Imagem",
+      demoHref: "/demo/clinica",
       tags: ["HIPAA/LGPD", "Next.js", "Integração ERP"],
       challenge:
         "Agendamentos manuais via WhatsApp consumiam 80% do tempo da recepção, com taxa de no-show de 20% e riscos de conformidade no envio de resultados de exames.",

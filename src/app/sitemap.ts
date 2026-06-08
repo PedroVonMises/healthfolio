@@ -7,11 +7,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://pedroaugusto.dev';
 
   // As rotas estáticas principais
-  const routes = ['', '/privacidade'].map((route) => ({
+  const routes = ['', '/privacidade', '/demo/clinica'].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: BUILD_DATE,
     changeFrequency: 'monthly' as const,
-    priority: route === '' ? 1 : 0.5,
+    priority: route === '' ? 1 : route === '/demo/clinica' ? 0.7 : 0.5,
   }));
 
   // Os slugs dos projetos derivados dinamicamente de lib/projects
