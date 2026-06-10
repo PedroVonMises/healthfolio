@@ -57,7 +57,7 @@ export default function Services() {
         <FadeIn>
           <div className="mx-auto max-w-2xl lg:text-center">
             <p className="font-display text-3xl font-bold tracking-tight text-text sm:text-4xl lg:text-5xl text-balance">
-              Menos operacional manual. Mais consultas efetivadas.
+              A tecnologia deve trabalhar pela sua clínica, não o contrário.
             </p>
             <p className="mt-6 text-base leading-7 text-text-muted text-balance">
               Sistemas genéricos criam mais problemas do que resolvem. Projetos
