@@ -8,7 +8,7 @@ import { StaggerContainer } from "@/components/ui/FadeIn";
 import Spotlight from "@/components/ui/Spotlight";
 import dynamic from "next/dynamic";
 const BeforeAfterSlider = dynamic(() => import("@/components/ui/BeforeAfterSlider"), { ssr: false });
-import { ArrowRight, Image as ImageIcon, FolderCheck } from "lucide-react";
+import { ArrowRight, Image as ImageIcon, FolderCheck, Target } from "lucide-react";
 import Image from "next/image";
 import { projects } from "@/lib/projects";
 
@@ -164,9 +164,21 @@ export default function Projects() {
                             <p className="text-text font-semibold">{project.resultado}</p>
                           </div>
                           {project.relevancia && (
-                            <p className="mt-1 text-[13px] leading-snug text-text-muted italic border-l-2 border-primary/40 pl-3">
-                              {project.relevancia}
-                            </p>
+                            <div className="mt-1 flex items-start gap-2.5 rounded-xl border border-primary/15 bg-primary-highlight/15 p-4 transition-colors duration-500 group-hover:border-primary/30">
+                              <Target
+                                className="mt-0.5 h-4 w-4 shrink-0 text-primary"
+                                strokeWidth={2}
+                                aria-hidden="true"
+                              />
+                              <div>
+                                <span className="mb-0.5 block text-[11px] font-bold uppercase tracking-wider text-primary">
+                                  Relevância para você
+                                </span>
+                                <p className="text-[13.5px] leading-snug text-text-muted">
+                                  {project.relevancia}
+                                </p>
+                              </div>
+                            </div>
                           )}
                         </div>
                       </div>

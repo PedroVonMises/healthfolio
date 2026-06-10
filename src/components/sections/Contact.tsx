@@ -5,7 +5,9 @@ import Link from 'next/link';
 import FadeIn from '@/components/ui/FadeIn';
 import { motion } from 'framer-motion';
 import { Send, CheckCircle2, AlertCircle, MessageCircle } from 'lucide-react';
+import { SiWhatsapp } from '@icons-pack/react-simple-icons';
 import { submitContactForm } from '@/app/actions/contact';
+import { buildWhatsappUrl } from '@/lib/contact';
 import CyberneticGridShader from '@/components/ui/cybernetic-grid-shader';
 
 export default function Contact() {
@@ -61,13 +63,28 @@ export default function Contact() {
                 <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-white/10 dark:from-white/10 dark:to-transparent opacity-50 dark:opacity-20 pointer-events-none" />
                 <CheckCircle2 className="h-16 w-16 text-primary mx-auto mb-6 relative z-10" strokeWidth={1.5} />
                 <h3 className="font-display text-2xl font-semibold text-primary mb-2 relative z-10">Mensagem enviada!</h3>
-                <p className="text-text-muted mb-8 relative z-10">Agradeço o contato. Retornarei o mais breve possível para entendermos os desafios da sua clínica.</p>
-                <button 
-                  onClick={() => window.location.reload()}
-                  className="rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-primary shadow-sm hover:bg-surface transition-all ring-1 ring-inset ring-primary/20 relative z-10"
-                >
-                  Enviar nova mensagem
-                </button>
+                <p className="text-text-muted mb-8 relative z-10 max-w-md mx-auto">
+                  Recebi seu contato e{' '}
+                  <span className="font-semibold text-text">retorno em até 24 horas úteis</span>.
+                  Se preferir falar agora, me chame no WhatsApp.
+                </p>
+                <div className="relative z-10 flex flex-col sm:flex-row items-center justify-center gap-3">
+                  <a
+                    href={buildWhatsappUrl('Olá, Pedro! Acabei de enviar uma mensagem pelo site e gostaria de falar sobre a minha clínica.')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-text-inverse shadow-md shadow-primary/20 hover:bg-primary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-all hover:-translate-y-0.5 w-full sm:w-auto"
+                  >
+                    <SiWhatsapp className="h-4 w-4 shrink-0" />
+                    Falar agora no WhatsApp
+                  </a>
+                  <button
+                    onClick={() => window.location.reload()}
+                    className="rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-primary shadow-sm hover:bg-surface transition-all ring-1 ring-inset ring-primary/20 w-full sm:w-auto"
+                  >
+                    Enviar nova mensagem
+                  </button>
+                </div>
               </div>
             </FadeIn>
           ) : (

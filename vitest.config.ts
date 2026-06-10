@@ -9,6 +9,9 @@ export default defineConfig({
     globals: true,
     setupFiles: ['./tests/setup.ts'],
     exclude: ['tests/e2e/**', 'node_modules/**', 'dist/**'],
+    // jest-axe + framer-motion renders are genuinely slow; under full-suite
+    // parallel CPU contention they can exceed the 5s default and flake.
+    testTimeout: 15000,
     coverage: {
       provider: 'v8',
       reporter: ['text', 'lcov'],
