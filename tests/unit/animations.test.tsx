@@ -153,6 +153,18 @@ describe("TrustMetrics", () => {
     expect(screen.getByText("Adequação LGPD")).toBeInTheDocument();
     expect(screen.getByText("Satisfação do Paciente")).toBeInTheDocument();
   });
+
+  it("attributes the metrics to a source (credibility)", async () => {
+    const { default: TrustMetrics } = await import(
+      "@/components/ui/TrustMetrics"
+    );
+
+    render(<TrustMetrics />);
+
+    expect(
+      screen.getByText(/Médias de projetos de referência/i)
+    ).toBeInTheDocument();
+  });
 });
 
 /* ------------------------------------------------------------------ */

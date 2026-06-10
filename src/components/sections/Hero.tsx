@@ -49,25 +49,25 @@ export default function Hero() {
 
               <FadeIn>
                 <p className="mt-6 text-base leading-7 text-text-muted max-w-[50ch]">
-                  Portais de paciente e agendamento inteligente para clínicas
-                  privadas na Grande Vitória que eliminam no-shows e liberam
-                  sua equipe.
+                  Menos no-shows e uma recepção livre do operacional — com
+                  portais de paciente e agendamento inteligente para clínicas
+                  privadas na Grande Vitória.
                 </p>
               </FadeIn>
 
               <FadeIn>
                 <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4">
                   <MagneticButton
-                    href="#contato"
+                    href="#projetos"
                     className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-text-inverse shadow-md shadow-primary/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-all duration-300 ring-1 ring-primary-active/50 hover:ring-primary-highlight"
                   >
-                    Quero uma análise gratuita
+                    Ver resultados em clínicas reais
                   </MagneticButton>
                   <a
-                    href="#projetos"
+                    href="#especializacao"
                     className="text-sm font-semibold leading-6 text-text hover:text-primary transition-colors duration-300 group flex items-center gap-2"
                   >
-                    Ver Casos de Sucesso{" "}
+                    Como isso funciona{" "}
                     <span
                       aria-hidden="true"
                       className="group-hover:translate-x-1 transition-transform duration-300"

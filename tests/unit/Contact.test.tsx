@@ -63,6 +63,21 @@ describe('Contact section', () => {
     expect(screen.getByText(/Enviar nova mensagem/i)).toBeInTheDocument();
   });
 
+  it('success state states a 24h SLA and offers a prefilled WhatsApp link', async () => {
+    mockActionState = { status: 'success', message: undefined };
+
+    const { default: Contact } = await import('@/components/sections/Contact');
+    render(<Contact />);
+
+    expect(screen.getByText(/24 horas úteis/i)).toBeInTheDocument();
+
+    const whatsappLink = screen.getByRole('link', { name: /WhatsApp/i });
+    expect(whatsappLink).toHaveAttribute('target', '_blank');
+    expect(whatsappLink.getAttribute('href')).toMatch(
+      /^https:\/\/wa\.me\/5527992018590\?text=/
+    );
+  });
+
   it('renders error state with alert when submission fails', async () => {
     mockActionState = { status: 'error', message: 'Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.' };
 
