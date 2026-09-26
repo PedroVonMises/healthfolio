@@ -4,6 +4,9 @@ on:
     - cron: '0 8 * * 1'   # toda segunda 08:00 UTC
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
   audit:

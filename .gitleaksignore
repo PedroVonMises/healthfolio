@@ -1,0 +1,3 @@
+# Falso positivo revisado em 26/09/2026: "ed25519_private_key" é texto de exemplo
+# na documentação do agente de pagamentos, não uma chave real.
+7541fc3c959dcc5b33ef6545fa69a3e71e97af28:.claude/agents/payments/agentic-payments.md:generic-api-key:35
